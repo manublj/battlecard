@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Button, Spinner, Table } from 'react-bootstrap';
+import { Container, Row, Spinner, Table, Modal } from 'react-bootstrap';
 import ReportingForm from '../components/forms/ReportingForm';
 import SearchBar from '../components/SearchBar';
+import FloatingButton from '../components/ui/FloatingButton';
 import { getSheetData, SHEET_NAMES } from '../api/googleSheetsApi';
 
 const ReportingPage = () => {
@@ -12,31 +13,17 @@ const ReportingPage = () => {
 
   useEffect(() => {
     fetchReports();
-  }, [setReports, setLoading]); // Add setReports and setLoading as dependencies
+  }, []);
 
   const fetchReports = async () => {
-    try {
-      setLoading(true);
-      const reportingData = await getSheetData('Reporting').catch(err => {
-        console.warn('Error fetching reporting data:', err);
-        return [];
-      });
-      
-      setReports(reportingData || []);
-    } catch (error) {
-      console.error('Error fetching reports:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchReportingData = async () => {
+    setLoading(true);
     try {
       const data = await getSheetData(SHEET_NAMES.REPORTING);
-      setReportingEntries(data);
+      setReports(data);
     } catch (error) {
-      console.error('Error fetching reporting data:', error);
+      console.error('Error fetching reports:', error);
     }
+    setLoading(false);
   };
 
   const handleSearch = (query) => {
@@ -89,27 +76,6 @@ const ReportingPage = () => {
 
   return (
     <Container fluid className="p-3">
-      <div className="mb-3 d-flex justify-content-between align-items-center">
-        <h2>Reporting</h2>
-        <div>
-          <Button 
-            variant="primary" 
-            onClick={() => setShowForm(true)}
-            className="rounded-circle d-none d-md-block"
-            style={{ position: 'fixed', bottom: '20px', right: '20px', width: '50px', height: '50px', fontSize: '24px' }}
-          >
-            +
-          </Button>
-          <Button 
-            variant="primary" 
-            onClick={() => setShowForm(true)}
-            className="rounded-circle d-block d-md-none"
-            style={{ position: 'fixed', bottom: '20px', right: '20px', width: '40px', height: '40px', fontSize: '18px' }}
-          >
-            +
-          </Button>
-        </div>
-      </div>
       <SearchBar onSearch={handleSearch} />
       <Row>
         {loading ? (
@@ -122,14 +88,28 @@ const ReportingPage = () => {
           renderTableView()
         )}
       </Row>
-      <ReportingForm 
+      <FloatingButton onClick={() => setShowForm(true)} />
+      
+      <Modal 
         show={showForm} 
         onHide={() => setShowForm(false)}
-        onSubmit={() => {
-          setShowForm(false);
-          fetchReports();
-        }}
-      />
+        size="lg"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Add New Report</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <ReportingForm 
+            show={showForm}
+            onHide={() => setShowForm(false)}
+            onSubmit={(formData) => {
+              setShowForm(false);
+              fetchReports();
+            }}
+          />
+        </Modal.Body>
+      </Modal>
     </Container>
   );
 };

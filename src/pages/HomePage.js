@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Button, Spinner, Table } from 'react-bootstrap';
-import ArticleCard from '../components/article/ArticleCard';
-import EntryForm from '../components/forms/EntryForm';
+import { Container, Row, Spinner, Table, Modal } from 'react-bootstrap';
 import SearchBar from '../components/SearchBar';
+import FloatingButton from '../components/ui/FloatingButton';
+import EntryForm from '../components/forms/EntryForm';
 import { getSheetData, SHEET_NAMES } from '../api/googleSheetsApi';
 
 const HomePage = () => {
   const [articles, setArticles] = useState({ THEORY: [], REPORTING: [] });
   const [loading, setLoading] = useState(true);
-  const [showForm, setShowForm] = useState(false);
+  const [showEntryForm, setShowEntryForm] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('THEORY');
 
@@ -19,16 +19,8 @@ const HomePage = () => {
   const fetchAllArticles = async () => {
     try {
       setLoading(true);
-      const theoryData = await getSheetData('THEORY').catch(err => {
-        console.warn('Error fetching theory data:', err);
-        return [];
-      });
-      
-      const reportingData = await getSheetData('REPORTING').catch(err => {
-        console.warn('Error fetching reporting data:', err);
-        return [];
-      });
-      
+      const theoryData = await getSheetData(SHEET_NAMES.THEORY);
+      const reportingData = await getSheetData(SHEET_NAMES.REPORTING);
       setArticles({
         THEORY: theoryData || [],
         REPORTING: reportingData || []
@@ -37,15 +29,6 @@ const HomePage = () => {
       console.error('Error fetching articles:', error);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const fetchTheoryData = async () => {
-    try {
-      const data = await getSheetData(SHEET_NAMES.THEORY);
-      setTheoryEntries(data);
-    } catch (error) {
-      console.error('Error fetching theory data:', error);
     }
   };
 
@@ -103,26 +86,6 @@ const HomePage = () => {
 
   return (
     <Container fluid className="p-3">
-      <div className="mb-3 d-flex justify-content-between align-items-center">
-        <div>
-          <Button 
-            variant="primary" 
-            onClick={() => setShowForm(true)}
-            className="rounded-circle d-none d-md-block"
-            style={{ position: 'fixed', bottom: '20px', right: '20px', width: '50px', height: '50px', fontSize: '24px' }}
-          >
-            +
-          </Button>
-          <Button 
-            variant="primary" 
-            onClick={() => setShowForm(true)}
-            className="rounded-circle d-block d-md-none"
-            style={{ position: 'fixed', bottom: '20px', right: '20px', width: '40px', height: '40px', fontSize: '18px' }}
-          >
-            +
-          </Button>
-        </div>
-      </div>
       <SearchBar onSearch={handleSearch} />
       <Row>
         {loading ? (
@@ -135,15 +98,28 @@ const HomePage = () => {
           renderTableView()
         )}
       </Row>
-      <EntryForm 
-        show={showForm} 
-        onHide={() => setShowForm(false)}
-        onSubmit={() => {
-          setShowForm(false);
-          fetchAllArticles();
-        }}
-        initialData={{ CATEGORY: 'THEORY' }}
-      />
+      <FloatingButton onClick={() => setShowEntryForm(true)} />
+      
+      <Modal 
+        show={showEntryForm} 
+        onHide={() => setShowEntryForm(false)}
+        size="lg"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Add New Entry</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <EntryForm 
+            onHide={() => setShowEntryForm(false)}
+            onSubmit={() => {
+              setShowEntryForm(false);
+              fetchAllArticles();
+            }}
+            initialData={{ CATEGORY: activeCategory }}
+          />
+        </Modal.Body>
+      </Modal>
     </Container>
   );
 };

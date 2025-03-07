@@ -3,6 +3,7 @@ import { Container, Row, Col, Tabs, Tab, Button, Spinner, Table, Form } from 're
 import CardView from '../components/article/CardView';
 import EntitiesForm from '../components/forms/EntitiesForm';
 import SearchBar from '../components/SearchBar';
+import FloatingButton from '../components/ui/FloatingButton';
 import { getSheetData, addRowToSheet } from '../api/googleSheetsApi';
 import { MultiSelect } from 'react-multi-select-component';
 import { SHEET_CONFIG } from '../utils/sheetValidation';
@@ -42,6 +43,11 @@ const CardsPage = () => {
         getSheetData('THEORY'),
         getSheetData('REPORTING')
       ]);
+      
+      // Extract unique WHO options from entities data
+      const uniqueWho = [...new Set(entitiesData.map(entity => entity.WHO).filter(Boolean))];
+      const whoOptions = uniqueWho.map(who => ({ value: who, label: who }));
+      setWhoOptions(whoOptions);
       
       setEntities(entitiesData);
       setArticles({
@@ -99,8 +105,7 @@ const CardsPage = () => {
       await addRowToSheet(SHEET_NAMES.ENTITIES, transformedData);
       console.log('Data successfully added to sheet'); // Debug log
       
-      // Only close and reset form after successful submission
-      setShowForm(false);
+      // Reset form and fetch updated data
       setFormData({
         WHO: [],
         bio: '',
@@ -108,9 +113,11 @@ const CardsPage = () => {
         SPECTRUM: ''
       });
       setErrors({});
+      setShowForm(false);
+      await fetchData();
     } catch (error) {
       console.error('Error submitting form:', error);
-      setErrors({ submit: 'Failed to submit form. Please try again.' });
+      setErrors({ submit: 'Failed to save entity. Please try again.' });
     }
   };
 
@@ -126,10 +133,18 @@ const CardsPage = () => {
   };
 
   const handleMultiSelectChange = (name, values) => {
-    setFormData(prev => ({
-      ...prev,
-      [name]: values || [] // Ensure values is always an array
-    }));
+    if (name === 'WHO') {
+      const selectedValues = values.map(value => value.value);
+      setFormData(prev => ({
+        ...prev,
+        [name]: selectedValues
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: values || [] // Ensure values is always an array
+      }));
+    }
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: null }));
     }
@@ -166,6 +181,23 @@ const CardsPage = () => {
       </div>
     );
   };
+
+  if (loading) {
+    return (
+      <Container className="mt-4">
+        <Row className="justify-content-center">
+          <Col md={6}>
+            <div className="text-center">
+              <Spinner animation="border" role="status" className="mb-3">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+              <p>Loading data...</p>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
 
   return (
     <Container fluid className="p-3">
@@ -211,8 +243,20 @@ const CardsPage = () => {
         </>
       ) : (
         <>
-          <SearchBar onSearch={handleSearch} />
-          
+          <Row>
+            <Col>
+              <SearchBar onSearch={handleSearch} />
+            </Col>
+          </Row>
+          <EntitiesForm
+            show={showForm}
+            onHide={() => setShowForm(false)}
+            formData={formData}
+            errors={errors}
+            onChange={handleChange}
+            onMultiSelectChange={handleMultiSelectChange}
+            onSubmit={handleFormSubmit}
+          />
           <Tabs
             activeKey={activeTab}
             onSelect={(k) => setActiveTab(k)}
@@ -231,30 +275,9 @@ const CardsPage = () => {
         </>
       )}
 
-      {showForm && (
-        <EntitiesForm
-          show={showForm}
-          onHide={() => setShowForm(false)}
-          formData={formData}
-          errors={errors}
-          onChange={handleChange}
-          onMultiSelectChange={handleMultiSelectChange}
-          onSubmit={handleFormSubmit}
-        />
-      )}
-      
       {renderEntityContent(activeTab)}
 
-      <div style={{ position: 'fixed', bottom: '20px', right: '20px' }}>
-        <Button 
-          variant="success" 
-          onClick={() => setShowForm(true)}
-          className="rounded-circle"
-          style={{ width: '40px', height: '40px', fontSize: '20px', padding: 0 }}
-        >
-          +
-        </Button>
-      </div>
+      <FloatingButton onClick={() => setShowForm(true)} />
     </Container>
   );
   

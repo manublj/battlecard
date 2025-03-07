@@ -4,38 +4,44 @@ import { addRowToSheet } from '../../api/googleSheetsApi';
 import { SHEET_CONFIG } from '../../utils/sheetValidation';
 import NotionMultiSelect from '../ui/NotionMultiSelect';
 
-const ReportingForm = ({ onSubmit, onHide }) => {
+const ReportingForm = ({ onSubmit, onHide, initialData = {} }) => {
   const [formData, setFormData] = useState({
-    headline: '',
-    POST_CONTENT: '',
+    URL: '',
     event_date: '',
+    headline: '',
     src_type: '',
     platform: '',
-    WHO: [],
-    event_type_tag: '',
-    REGION: [],
-    URL: '',
-    AUTHOR: []
+    POST_CONTENT: '',
+    abstract: '',
+    event_type_tag: [],
+    author: [],
+    publisher: '',
+    ...initialData
   });
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    // Clear error when field is modified
+    setFormData(prev => {
+      const newData = { ...prev, [name]: value };
+      
+      // Reset conditional fields when source type changes
+      if (name === 'src_type') {
+        if (value === 'post') {
+          newData.publisher = '';
+          newData.abstract = '';
+        } else {
+          newData.platform = '';
+          newData.POST_CONTENT = '';
+          newData.author = [];
+        }
+      }
+      
+      return newData;
+    });
+
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: null }));
-    }
-
-    // Handle conditional fields
-    if (name === 'src_type' && value !== 'post') {
-      setFormData(prev => ({ ...prev, platform: '' }));
-    }
-    if (name === 'event_type_tag' && value !== 'action') {
-      setFormData(prev => ({ ...prev, REGION: [] }));
     }
   };
 
@@ -75,10 +81,11 @@ const ReportingForm = ({ onSubmit, onHide }) => {
       case 'multiSelect':
         return (
           <NotionMultiSelect
-            options={[]} // Add your options here
+            options={config.options || []}
             value={formData[fieldName] || []}
             onChange={(values) => handleMultiSelectChange(fieldName, values)}
             error={errors[fieldName]}
+            placeholder={`Select ${config.label}...`}
           />
         );
       case 'select':
@@ -132,13 +139,23 @@ const ReportingForm = ({ onSubmit, onHide }) => {
     return SHEET_CONFIG.REPORTING.displayOrder.map(fieldName => {
       const fieldConfig = SHEET_CONFIG.REPORTING.fields[fieldName];
       
+      // Skip fields that don't meet their display conditions
       if (fieldConfig.condition && !fieldConfig.condition(formData)) {
         return null;
       }
 
+      // Special handling for platform field to ensure it appears after post content
+      if (fieldName === 'platform' && formData.src_type === 'post') {
+        const shouldRender = SHEET_CONFIG.REPORTING.fields.POST_CONTENT.condition(formData);
+        if (!shouldRender) return null;
+      }
+
       return (
         <Form.Group key={fieldName} className="mb-3">
-          <Form.Label>{fieldConfig.label}*</Form.Label>
+          <Form.Label>
+            {fieldConfig.label}
+            {fieldConfig.required && <span className="text-danger">*</span>}
+          </Form.Label>
           {renderField(fieldName, fieldConfig)}
           {errors[fieldName] && (
             <Form.Text className="text-danger">

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Button, Modal, Alert } from 'react-bootstrap';
 import { SHEET_CONFIG } from '../../utils/sheetValidation';
 import NotionMultiSelect from '../ui/NotionMultiSelect';
+import { addRowToSheet } from '../../api/googleSheetsApi';
 
 // Add WHO options at the top of the file
 const WHO_OPTIONS = [
@@ -15,72 +16,113 @@ const WHO_OPTIONS = [
 const EntitiesForm = ({ 
   show, 
   onHide, 
-  formData, 
-  errors, 
-  onChange, 
-  onMultiSelectChange, 
-  onSubmit 
+  onSubmit
 }) => {
+  const initialFormState = {
+    WHO: [],
+    bio: '',
+    entity_type: '',
+    SPECTRUM: ''
+  };
+
+  const [formData, setFormData] = useState(initialFormState);
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: null }));
+    }
+  };
+
+  const handleMultiSelectChange = (name, values) => {
+    setFormData(prev => ({
+      ...prev,
+      [name]: values
+    }));
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: null }));
+    }
+  };
+
+  const resetForm = () => {
+    setFormData(initialFormState);
+    setErrors({});
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await addRowToSheet('ENTITIES', formData);
+      resetForm(); // Reset form after successful submission
+      onSubmit();
+      onHide();
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+  };
+
+  // Reset form when modal is closed
+  const handleClose = () => {
+    resetForm();
+    onHide();
+  };
+
   const renderField = (fieldName, config) => {
     switch (config.type) {
       case 'multiSelect':
         return (
           <NotionMultiSelect
-            key={`${fieldName}-select`}
-            options={[]} // Empty array for free-form entry
+            options={config.options || []}
             value={formData[fieldName] || []}
-            onChange={(values) => onMultiSelectChange(fieldName, values)}
+            onChange={(values) => handleMultiSelectChange(fieldName, values)}
             error={errors[fieldName]}
-            placeholder={`Type ${fieldName} and press Enter...`}
+            placeholder={`Select ${config.label}...`}
           />
         );
       case 'select':
         return (
           <Form.Select
-            key={`${fieldName}-select`}
             name={fieldName}
             value={formData[fieldName] || ''}
-            onChange={onChange}
+            onChange={handleChange}
             isInvalid={!!errors[fieldName]}
           >
-            <option key={`${fieldName}-empty`} value="">Select...</option>
+            <option value="">Select...</option>
             {config.options.map(opt => (
-              <option key={`${fieldName}-${opt}`} value={opt}>{opt}</option>
+              <option key={opt} value={opt}>{opt}</option>
             ))}
           </Form.Select>
         );
       case 'text':
         return (
           <Form.Control
-            key={`${fieldName}-text`}
             as="textarea"
             name={fieldName}
             value={formData[fieldName] || ''}
-            onChange={onChange}
+            onChange={handleChange}
             isInvalid={!!errors[fieldName]}
           />
         );
       default:
         return (
           <Form.Control
-            key={`${fieldName}-input`}
             type="text"
             name={fieldName}
             value={formData[fieldName] || ''}
-            onChange={onChange}
+            onChange={handleChange}
             isInvalid={!!errors[fieldName]}
           />
         );
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await onSubmit(e);
-  };
-
   return (
-    <Modal show={show} onHide={onHide}>
+    <Modal show={show} onHide={handleClose}>
       <Form onSubmit={handleSubmit}>
         <Modal.Header closeButton>
           <Modal.Title>Add Entity</Modal.Title>
@@ -96,7 +138,7 @@ const EntitiesForm = ({
             
             return (
               <Form.Group key={`group-${fieldName}`} className="mb-3">
-                <Form.Label>{fieldName}*</Form.Label>
+                <Form.Label>{fieldConfig.label}{fieldConfig.required && <span className="text-danger">*</span>}</Form.Label>
                 {renderField(fieldName, fieldConfig)}
                 {errors[fieldName] && (
                   <Form.Text key={`error-${fieldName}`} className="text-danger">
@@ -108,12 +150,8 @@ const EntitiesForm = ({
           })}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={onHide}>
-            Cancel
-          </Button>
-          <Button variant="primary" type="submit">
-            Save
-          </Button>
+          <Button variant="secondary" onClick={handleClose}>Close</Button>
+          <Button variant="primary" type="submit">Save</Button>
         </Modal.Footer>
       </Form>
     </Modal>

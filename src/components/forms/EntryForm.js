@@ -1,43 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { addRowToSheet } from '../../api/googleSheetsApi';
 import { SHEET_CONFIG } from '../../utils/sheetValidation';
 import NotionMultiSelect from '../ui/NotionMultiSelect';
 
-const EntryForm = ({ onSubmit, onHide }) => {
+const EntryForm = ({ onSubmit, onHide, initialData = {} }) => {
   const [formData, setFormData] = useState({
-    title: '',
-    abstract: '',
     src_type: '',
+    title: '',
+    post_content: '',
+    abstract: '',
     platform: '',
     domain: '',
     WHO: [],
     keywords: [],
     spectrum: '',
-    url: ''
+    author: [],
+    publication_date: '',
+    url: '',
+    ...initialData
   });
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    // Clear error when field is modified
+    setFormData(prev => {
+      const newData = { ...prev, [name]: value };
+      
+      // Reset conditional fields when source type changes
+      if (name === 'src_type') {
+        if (value !== 'Social Media Post') {
+          newData.platform = '';
+          newData.post_content = '';
+        }
+        if (value !== 'Article') {
+          newData.domain = '';
+        }
+      }
+      
+      return newData;
+    });
+
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: null }));
-    }
-
-    // Handle conditional fields
-    if (name === 'src_type') {
-      if (value === 'post') {
-        setFormData(prev => ({ ...prev, domain: '' }));
-      } else if (value === 'article') {
-        setFormData(prev => ({ ...prev, platform: '' }));
-      } else {
-        setFormData(prev => ({ ...prev, platform: '', domain: '' }));
-      }
     }
   };
 
@@ -46,7 +51,6 @@ const EntryForm = ({ onSubmit, onHide }) => {
       ...prev,
       [name]: values
     }));
-    // Clear error when field is modified
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: null }));
     }
@@ -54,7 +58,7 @@ const EntryForm = ({ onSubmit, onHide }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { isValid, errors: validationErrors } = validateFormData('ENTITIES', formData);
+    const { isValid, errors: validationErrors } = validateFormData(formData);
     
     if (!isValid) {
       setErrors(validationErrors);
@@ -62,18 +66,16 @@ const EntryForm = ({ onSubmit, onHide }) => {
     }
 
     try {
-      const transformedData = transformFormDataForSheet('ENTITIES', formData);
-      console.log('Data to be sent to Google Sheets:', transformedData);
-      await addRowToSheet('ENTITIES', transformedData);
+      const transformedData = transformFormData(formData);
+      await addRowToSheet('THEORY', transformedData);
       onSubmit();
-      onHide();
     } catch (error) {
       console.error('Error submitting form:', error);
     }
   };
 
   const renderField = (fieldName, config) => {
-    // Skip if field has a condition and it's not met
+    // Don't render if field has a condition that isn't met
     if (config.condition && !config.condition(formData)) {
       return null;
     }
@@ -82,7 +84,7 @@ const EntryForm = ({ onSubmit, onHide }) => {
       case 'multiSelect':
         return (
           <NotionMultiSelect
-            options={[]} // Add your options here
+            options={config.options || []}
             value={formData[fieldName] || []}
             onChange={(values) => handleMultiSelectChange(fieldName, values)}
             error={errors[fieldName]}
@@ -103,11 +105,20 @@ const EntryForm = ({ onSubmit, onHide }) => {
           </Form.Select>
         );
       case 'text':
-      case 'abstract':
         return (
           <Form.Control
             as="textarea"
-            rows={config.type === 'abstract' ? 4 : 3}
+            rows={3}
+            name={fieldName}
+            value={formData[fieldName] || ''}
+            onChange={handleChange}
+            isInvalid={!!errors[fieldName]}
+          />
+        );
+      case 'date':
+        return (
+          <Form.Control
+            type="date"
             name={fieldName}
             value={formData[fieldName] || ''}
             onChange={handleChange}
@@ -117,7 +128,7 @@ const EntryForm = ({ onSubmit, onHide }) => {
       default:
         return (
           <Form.Control
-            type={config.type === 'url' ? 'url' : 'text'}
+            type={config.type}
             name={fieldName}
             value={formData[fieldName] || ''}
             onChange={handleChange}
@@ -127,24 +138,67 @@ const EntryForm = ({ onSubmit, onHide }) => {
     }
   };
 
+  const renderFields = () => {
+    return SHEET_CONFIG.THEORY.displayOrder.map(fieldName => {
+      const fieldConfig = SHEET_CONFIG.THEORY.fields[fieldName];
+      if (!fieldConfig || (fieldConfig.condition && !fieldConfig.condition(formData))) {
+        return null;
+      }
+
+      if (fieldName === 'platform' && formData.src_type !== 'Social Media Post') {
+        return null;
+      }
+
+      if (fieldName === 'post_content') {
+        return (
+          <React.Fragment key={fieldName}>
+            <Form.Group className="mb-3">
+              <Form.Label>{fieldConfig.label}
+                {fieldConfig.required && <span className="text-danger">*</span>}
+              </Form.Label>
+              {renderField(fieldName, fieldConfig)}
+              {errors[fieldName] && (
+                <Form.Text className="text-danger">
+                  {errors[fieldName]}
+                </Form.Text>
+              )}
+            </Form.Group>
+            {formData.src_type === 'Social Media Post' && (
+              <Form.Group className="mb-3">
+                <Form.Label>Platform
+                  {SHEET_CONFIG.THEORY.fields.platform.required && <span className="text-danger">*</span>}
+                </Form.Label>
+                {renderField('platform', SHEET_CONFIG.THEORY.fields.platform)}
+                {errors.platform && (
+                  <Form.Text className="text-danger">
+                    {errors.platform}
+                  </Form.Text>
+                )}
+              </Form.Group>
+            )}
+          </React.Fragment>
+        );
+      }
+
+      return (
+        <Form.Group key={fieldName} className="mb-3">
+          <Form.Label>{fieldConfig.label}
+            {fieldConfig.required && <span className="text-danger">*</span>}
+          </Form.Label>
+          {renderField(fieldName, fieldConfig)}
+          {errors[fieldName] && (
+            <Form.Text className="text-danger">
+              {errors[fieldName]}
+            </Form.Text>
+          )}
+        </Form.Group>
+      );
+    });
+  };
+
   return (
     <Form onSubmit={handleSubmit}>
-      {SHEET_CONFIG.ENTITIES.displayOrder.map(fieldName => {
-        const fieldConfig = SHEET_CONFIG.ENTITIES.fields[fieldName];
-        
-        return (
-          <Form.Group key={fieldName} className="mb-3">
-            <Form.Label>{fieldName}*</Form.Label>
-            {renderField(fieldName, fieldConfig)}
-            {errors[fieldName] && (
-              <Form.Text className="text-danger">
-                {errors[fieldName]}
-              </Form.Text>
-            )}
-          </Form.Group>
-        );
-      })}
-
+      {renderFields()}
       <div className="d-flex justify-content-end gap-2">
         <Button variant="secondary" onClick={onHide}>
           Cancel

@@ -87,7 +87,7 @@ const NotionMultiSelect = ({
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyDown={handleKeyDown}
           onClick={() => setIsOpen(true)}
-          placeholder={value.length === 0 ? placeholder : 'Type and press Enter...'}
+          placeholder={value.length === 0 ? placeholder : ''}
         />
       </div>
       {error && <div className="invalid-feedback">{error}</div>}
