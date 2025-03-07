@@ -1,0 +1,119 @@
+/* Add your CSS styles here */
+
+.notion-multi-select-container {
+  position: relative;
+  width: 100%;
+}
+
+.notion-multi-select-tags {
+  min-height: 38px;
+  padding: 2px 8px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+  cursor: text;
+  background: #fff;
+}
+
+.notion-multi-select-tags.is-invalid {
+  border-color: #dc3545;
+}
+
+.notion-multi-select-tags input {
+  border: none;
+  outline: none;
+  padding: 4px;
+  margin: 2px;
+  flex: 1;
+  min-width: 120px;
+}
+
+.notion-tag {
+  display: inline-flex;
+  align-items: center;
+  background: #e9ecef;
+  border-radius: 16px;
+  padding: 2px 8px;
+  margin: 2px;
+  font-size: 14px;
+  color: #495057;
+  border: 1px solid #dee2e6;
+  transition: all 0.2s ease;
+}
+
+.notion-tag:hover {
+  background: #dee2e6;
+}
+
+.notion-tag button {
+  background: none;
+  border: none;
+  margin-left: 4px;
+  padding: 0 4px;
+  font-size: 16px;
+  line-height: 1;
+  color: #6c757d;
+  cursor: pointer;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notion-tag button:hover {
+  color: #dc3545;
+  background: rgba(220, 53, 69, 0.1);
+}
+
+.notion-multi-select-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-top: 4px;
+}
+
+.notion-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.notion-option:hover {
+  background-color: #f8f9fa;
+}
+
+.notion-option.selected {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.invalid-feedback {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
+}
+
+/* Focus state */
+.notion-multi-select-tags:focus-within {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Placeholder styling */
+.notion-multi-select-tags input::placeholder {
+  color: #6c757d;
+  opacity: 0.65;
+}
