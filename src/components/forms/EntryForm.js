@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import { addRowToSheet } from '../../api/googleSheetsApi';
+import { addRowToSheet, SHEET_NAMES } from '../../api/googleSheetsApi';
 import { SHEET_CONFIG } from '../../utils/sheetValidation';
 import NotionMultiSelect from '../ui/NotionMultiSelect';
+import { validateFormData, transformFormDataForSheet } from '../../utils/validation';
 
 const EntryForm = ({ onSubmit, onHide, initialData = {} }) => {
   const [formData, setFormData] = useState({
-    src_type: '',
+    url: '',
     title: '',
-    post_content: '',
-    abstract: '',
+    description: '',
+    src_type: '',
+    keywords: [],
+    author: [],
     platform: '',
     domain: '',
     WHO: [],
-    keywords: [],
     spectrum: '',
-    author: [],
     publication_date: '',
-    url: '',
     ...initialData
   });
   const [errors, setErrors] = useState({});
@@ -58,7 +58,7 @@ const EntryForm = ({ onSubmit, onHide, initialData = {} }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { isValid, errors: validationErrors } = validateFormData(formData);
+    const { isValid, errors: validationErrors } = validateFormData(SHEET_NAMES.THEORY, formData);
     
     if (!isValid) {
       setErrors(validationErrors);
@@ -66,11 +66,13 @@ const EntryForm = ({ onSubmit, onHide, initialData = {} }) => {
     }
 
     try {
-      const transformedData = transformFormData(formData);
-      await addRowToSheet('THEORY', transformedData);
+      const transformedData = transformFormDataForSheet(SHEET_NAMES.THEORY, formData);
+      await addRowToSheet(SHEET_NAMES.THEORY, transformedData);
       onSubmit();
+      onHide();
     } catch (error) {
       console.error('Error submitting form:', error);
+      setErrors({ submit: 'Failed to save entry' });
     }
   };
 
@@ -139,61 +141,28 @@ const EntryForm = ({ onSubmit, onHide, initialData = {} }) => {
   };
 
   const renderFields = () => {
-    return SHEET_CONFIG.THEORY.displayOrder.map(fieldName => {
-      const fieldConfig = SHEET_CONFIG.THEORY.fields[fieldName];
-      if (!fieldConfig || (fieldConfig.condition && !fieldConfig.condition(formData))) {
-        return null;
-      }
-
-      if (fieldName === 'platform' && formData.src_type !== 'Social Media Post') {
-        return null;
-      }
-
-      if (fieldName === 'post_content') {
+    return SHEET_CONFIG.THEORY.displayOrder
+      .filter(fieldName => {
+        const fieldConfig = SHEET_CONFIG.THEORY.fields[fieldName];
+        return !fieldConfig.auto && (!fieldConfig.condition || fieldConfig.condition(formData));
+      })
+      .map(fieldName => {
+        const fieldConfig = SHEET_CONFIG.THEORY.fields[fieldName];
         return (
-          <React.Fragment key={fieldName}>
-            <Form.Group className="mb-3">
-              <Form.Label>{fieldConfig.label}
-                {fieldConfig.required && <span className="text-danger">*</span>}
-              </Form.Label>
-              {renderField(fieldName, fieldConfig)}
-              {errors[fieldName] && (
-                <Form.Text className="text-danger">
-                  {errors[fieldName]}
-                </Form.Text>
-              )}
-            </Form.Group>
-            {formData.src_type === 'Social Media Post' && (
-              <Form.Group className="mb-3">
-                <Form.Label>Platform
-                  {SHEET_CONFIG.THEORY.fields.platform.required && <span className="text-danger">*</span>}
-                </Form.Label>
-                {renderField('platform', SHEET_CONFIG.THEORY.fields.platform)}
-                {errors.platform && (
-                  <Form.Text className="text-danger">
-                    {errors.platform}
-                  </Form.Text>
-                )}
-              </Form.Group>
+          <Form.Group key={fieldName} className="mb-3">
+            <Form.Label>
+              {fieldConfig.label}
+              {fieldConfig.required && <span className="text-danger">*</span>}
+            </Form.Label>
+            {renderField(fieldName, fieldConfig)}
+            {errors[fieldName] && (
+              <Form.Text className="text-danger">
+                {errors[fieldName]}
+              </Form.Text>
             )}
-          </React.Fragment>
+          </Form.Group>
         );
-      }
-
-      return (
-        <Form.Group key={fieldName} className="mb-3">
-          <Form.Label>{fieldConfig.label}
-            {fieldConfig.required && <span className="text-danger">*</span>}
-          </Form.Label>
-          {renderField(fieldName, fieldConfig)}
-          {errors[fieldName] && (
-            <Form.Text className="text-danger">
-              {errors[fieldName]}
-            </Form.Text>
-          )}
-        </Form.Group>
-      );
-    });
+      });
   };
 
   return (
