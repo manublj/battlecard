@@ -1,0 +1,685 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>OPERATION: ZOOMOUT</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-transparentGray { background-color: undefined; }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1c30fe7c-0095-803b-ab4d-da1e1896b3e0" class="page sans"><header><h1 class="page-title">OPERATION: ZOOMOUT</h1><p class="page-description"></p></header><div class="page-body"><h1 id="1c30fe7c-0095-80c0-a4ce-ea755a63f7be" class=""><strong>📜 OPERATION: ZOOMOUT</strong></h1><hr id="1c30fe7c-0095-80aa-a09f-d7c76493b03a"/><h2 id="1c30fe7c-0095-802b-8a9f-e639fb10dbfc" class=""><strong>1️⃣ INTRODUCTION</strong></h2><h3 id="1c30fe7c-0095-8046-9549-de6c69facc12" class=""><strong>1.1 Purpose of This Document</strong></h3><p id="1c30fe7c-0095-8093-8c9c-c5f06d869219" class="">Zoomout is a <strong>contradiction-mapping engine</strong> designed to analyze <strong>social, political, and economic contradictions</strong> by structuring events, issues, ideological stances, and systemic forces into an interconnected framework. This document outlines the conceptual, structural, and technical foundation of Zoomout, guiding its implementation and future evolution.</p><h3 id="1c30fe7c-0095-8011-91ed-c22dc6131247" class=""><strong>1.2 Scope &amp; Objectives</strong></h3><p id="1c30fe7c-0095-80e7-90b8-f2cd10537092" class="">🔹 Provide a <strong>historically materialist approach</strong> to tracking contradictions.</p><p id="1c30fe7c-0095-8085-b665-d76621936c22" class="">🔹 Implement a <strong>structured contradiction analysis system</strong> through events, struggles, and structural forces.</p><p id="1c30fe7c-0095-8046-9d57-deeed7f94de9" class="">🔹 Ensure <strong>real-time tracking</strong> of contradiction intensification and ruling-class responses.</p><p id="1c30fe7c-0095-807b-b938-f9ec981bcf49" class="">🔹 Establish a <strong>scalable framework</strong> for continuous expansion and refinement.</p><h3 id="1c30fe7c-0095-8043-8a0f-f7cb78e3331b" class=""><strong>1.3 Why This Document Forked from V6</strong></h3><p id="1c30fe7c-0095-8056-b22d-f45066ab1d0c" class="">🚀 <em>Operation: Zoomout</em> is an evolution of <strong>Zoomout V6</strong>, refining its concepts into a <strong>tighter, contradiction-driven framework</strong>.</p><p id="1c30fe7c-0095-80e1-b9d5-dee37922246f" class="">🔹 Moved from <strong>event-centric tracking</strong> to a <strong>contradiction-first model</strong> 🏗️.</p><p id="1c30fe7c-0095-80fe-a50d-f30b46e9e39c" class="">🔹 <strong>Principal Contradiction Tracker</strong> became a <strong>core feature</strong> 📊.</p><p id="1c30fe7c-0095-8000-9d3e-ec9e6badc11b" class="">🔹 <strong>New structuring</strong> under <em>Concepts, Data Structure, Frontend, and Backend</em> for clarity.</p><hr id="1c30fe7c-0095-801b-a604-ede26c2a87d8"/><h2 id="1c30fe7c-0095-805f-b37a-c5d962f5cf1b" class=""><strong>2️⃣ CONCEPTS</strong></h2><h3 id="1c30fe7c-0095-8057-9cf9-c49452b97bf4" class="">🔍 <strong>2.1 Core Framework of Zoomout</strong></h3><h3 id="1c30fe7c-0095-8026-b24e-ff8094a9cdef" class="">🕵️ <strong>2.2 Event Ontology &amp; Hierarchical Structure</strong></h3><h3 id="1c30fe7c-0095-800a-890b-c058c0aeef5d" class="">📌 <strong>2.3 Issue Cards &amp; Stance Mapping</strong></h3><h3 id="1c30fe7c-0095-80a5-9017-dcc3c30c346e" class="">⚡ <strong>2.4 Contradiction Tracking System</strong></h3><ul id="1c30fe7c-0095-8006-8f17-f0adfca21b8b" class="bulleted-list"><li style="list-style-type:disc"><strong>2.4.1 Contradiction Intensification &amp; Resolution</strong></li></ul><ul id="1c30fe7c-0095-80b1-a415-c078fdecaa03" class="bulleted-list"><li style="list-style-type:disc"><strong>2.4.2 Structural Role of Contradictions</strong></li></ul><ul id="1c30fe7c-0095-80f2-bdf4-fdc7b535e777" class="bulleted-list"><li style="list-style-type:disc"><strong>2.4.3 Ruling-Class Management Strategies</strong> 🏛️<ul id="1c30fe7c-0095-80dc-9b07-e7fee06b04cf" class="bulleted-list"><li style="list-style-type:circle">Legal Containment ⚖️</li></ul><ul id="1c30fe7c-0095-80cb-8b87-f8af36094772" class="bulleted-list"><li style="list-style-type:circle">Repressive Control 🚔</li></ul><ul id="1c30fe7c-0095-8032-b680-d1d806ad25c1" class="bulleted-list"><li style="list-style-type:circle">Narrative Manipulation 📢</li></ul><ul id="1c30fe7c-0095-80c7-9873-cde1ca831cdf" class="bulleted-list"><li style="list-style-type:circle">Co-optation 🎭</li></ul><ul id="1c30fe7c-0095-805e-8f46-d6c41388e4c1" class="bulleted-list"><li style="list-style-type:circle">Economic Pressure 💰</li></ul><ul id="1c30fe7c-0095-803d-ab4d-cce0b7ce2c8d" class="bulleted-list"><li style="list-style-type:circle">Bureaucratic Sabotage 🏢</li></ul><ul id="1c30fe7c-0095-8021-af0c-c6c60baf41ea" class="bulleted-list"><li style="list-style-type:circle">Selective Repression 🚫</li></ul></li></ul><h3 id="1c30fe7c-0095-806f-97f4-f5a92d8370b7" class="">🛠️ <strong>2.5 Struggles, Structures, and Contradictions Framework</strong></h3><h3 id="1c30fe7c-0095-8018-874e-da5fff8fe6c6" class="">📊 <strong>2.6 Timeline-Based Analysis for Political Forecasting</strong></h3><h3 id="1c30fe7c-0095-8016-acde-f12c50de3674" class="">🔗 <strong>2.7 Graph-Based Future of Zoomout</strong></h3><hr id="1c30fe7c-0095-8082-8992-c3f5ab7c5aab"/><h2 id="1c30fe7c-0095-80c9-905d-f7d850d2d491" class=""><strong>3️⃣ DATA STRUCTURE</strong></h2><h3 id="1c30fe7c-0095-802c-96b4-f1233946e427" class="">🏷️ <strong>3.1 Event Categorization &amp; Tagging System</strong></h3><h3 id="1c30fe7c-0095-8033-81c2-ea93131fa93d" class="">🗂️ <strong>3.2 Data Model &amp; Relational Framework</strong></h3><h3 id="1c30fe7c-0095-80a3-8e28-c9b1b6fef610" class="">📊 <strong>3.3 Stance Tracking &amp; Political Realignments</strong></h3><h3 id="1c30fe7c-0095-806d-a9a7-db8731506170" class="">🔄 <strong>3.4 Integrating Contradiction Analysis into Event Timelines</strong></h3><h3 id="1c30fe7c-0095-802d-a43c-dba7c251d1e6" class="">📌 <strong>3.5 Handling Event Updates Dynamically</strong></h3><h3 id="1c30fe7c-0095-8065-a67c-ef7065a7113f" class="">📝 <strong>3.6 Entity Profile Cards as Dialectical Wikis</strong></h3><h3 id="1c30fe7c-0095-80db-97b5-e0376e076896" class="">📖 <strong>3.7 Issue Cards &amp; Struggles Structuring</strong></h3><ul id="1c30fe7c-0095-809f-bb3b-f11d02c176ce" class="bulleted-list"><li style="list-style-type:disc"><strong>3.7.1 Three-Column Stance Model 📑</strong></li></ul><ul id="1c30fe7c-0095-8043-b0ee-f4efec1160db" class="bulleted-list"><li style="list-style-type:disc"><strong>3.7.2 Issue Cards Linking to Event Timelines 🔄</strong></li></ul><ul id="1c30fe7c-0095-8083-9cbb-e70e8ff694e2" class="bulleted-list"><li style="list-style-type:disc"><strong>3.7.3 Struggles Categorization by Scale, Form, and Sector 🔥</strong></li></ul><ul id="1c30fe7c-0095-8099-8cc2-f6d4c4ac5a5a" class="bulleted-list"><li style="list-style-type:disc"><strong>3.7.4 Relationship Between Issue Cards, Events, and Struggles 🌍</strong></li></ul><hr id="1c30fe7c-0095-809e-88b4-c613788da78e"/><h3 id="1c30fe7c-0095-8076-8bc6-dc1e129bc9ec" class=""><strong>💾 3.8 SHEET SCHEMAS (EXPLICIT INTEGRATION FROM V6)</strong></h3><h3 id="1c30fe7c-0095-803f-8e6c-d588971cd291" class="">📌 <strong>3.8.1 Events Sheet</strong></h3><p id="1c50fe7c-0095-809e-8443-da27efbf07cf" class="">The <strong>Events Sheet</strong> functions as a core dataset in Zoomout, ensuring that all recorded developments are structured <strong>within contradiction motion tracking</strong> rather than as isolated occurrences. Events are categorized not just by their type but by their <strong>relationship to contradictions, struggles, and ruling-class interventions.</strong></p><h1 id="1c50fe7c-0095-80dc-a0bf-cb3e99d7101c" class=""><strong>Finalized Events Sheet Schema</strong></h1><table id="1c50fe7c-0095-80f6-8976-d0af08c0edfd" class="simple-table"><tbody><tr id="1c50fe7c-0095-8066-926d-ed3ef536c5ac"><td id="&gt;FI_" class=""><strong>Field Name</strong></td><td id="uBN]" class=""><strong>Description</strong></td></tr><tr id="1c50fe7c-0095-80f5-bcaa-e417ec5a6fc9"><td id="&gt;FI_" class=""><strong>event_id</strong></td><td id="uBN]" class="">Unique identifier for each event.</td></tr><tr id="1c50fe7c-0095-8052-a34c-d6f4a2791dd6"><td id="&gt;FI_" class=""><strong>headline</strong></td><td id="uBN]" class="">Title summarizing the event.</td></tr><tr id="1c50fe7c-0095-8075-9483-f84325d6a631"><td id="&gt;FI_" class=""><strong>description</strong></td><td id="uBN]" class="">Detailed description of the event.</td></tr><tr id="1c50fe7c-0095-80ad-a2b0-f1849932a64e"><td id="&gt;FI_" class=""><strong>event_date</strong></td><td id="uBN]" class="">Date when the event occurred.</td></tr><tr id="1c50fe7c-0095-80ca-9504-e0fc267209de"><td id="&gt;FI_" class=""><strong>location</strong></td><td id="uBN]" class="">Geographic location of the event.</td></tr><tr id="1c50fe7c-0095-8072-ba57-ef20acedfa28"><td id="&gt;FI_" class=""><strong>source_link</strong></td><td id="uBN]" class="">URL of the source where the event is reported.</td></tr><tr id="1c50fe7c-0095-8020-adfd-f00bfd6300fd"><td id="&gt;FI_" class=""><strong>contradiction_id</strong></td><td id="uBN]" class="">Identifies the contradiction the event manifests.</td></tr><tr id="1c50fe7c-0095-80f5-9fd5-e4916dd82065"><td id="&gt;FI_" class=""><strong>struggle_id</strong></td><td id="uBN]" class="">Links the event to a larger struggle.</td></tr><tr id="1c50fe7c-0095-8067-913f-c15f1623f15e"><td id="&gt;FI_" class=""><strong>timeline_id</strong></td><td id="uBN]" class="">Allows multi-select assignment of events to struggles.</td></tr><tr id="1c50fe7c-0095-80d6-a385-c97f5448aee0"><td id="&gt;FI_" class=""><strong>multi_headline_view</strong></td><td id="uBN]" class="">Captures multiple news perspectives to compare biases.</td></tr><tr id="1c50fe7c-0095-803d-9bb3-e5173bf2caff"><td id="&gt;FI_" class=""><strong>item_category</strong></td><td id="uBN]" class="">Categorizes developments as <code>Event</code>, <code>Issue</code>, or <code>Structural Change</code>.</td></tr><tr id="1c50fe7c-0095-80b5-92b0-e4f57653b0e5"><td id="&gt;FI_" class=""><strong>reporting_date</strong></td><td id="uBN]" class="">Date when the event was reported in media.</td></tr><tr id="1c50fe7c-0095-8037-bf12-dad00e7c49fb"><td id="&gt;FI_" class=""><strong>src_type</strong></td><td id="uBN]" class="">Type of source (e.g., News Article, Social Media Post).</td></tr><tr id="1c50fe7c-0095-80c8-8982-cf0c0f28225b"><td id="&gt;FI_" class=""><strong>platform</strong></td><td id="uBN]" class="">Platform where the event was reported (if <code>src_type = Post</code>).</td></tr><tr id="1c50fe7c-0095-8026-acee-e5854bd97f80"><td id="&gt;FI_" class=""><strong>SPECTRUM</strong></td><td id="uBN]" class="">Political spectrum classification (<code>Left</code>, <code>Center</code>, <code>Right</code>).</td></tr><tr id="1c50fe7c-0095-80a8-a4f5-ffd087ba013b"><td id="&gt;FI_" class=""><strong>entity_name</strong></td><td id="uBN]" class="">Multi-select field for related entities (<strong>WHO</strong> is involved).</td></tr><tr id="1c50fe7c-0095-80d3-9cdf-d6fa5687ffc5"><td id="&gt;FI_" class=""><strong>event_type_tag</strong></td><td id="uBN]" class="">Categorization of event type (Policy Change, Protest, Crackdown, Repression, Co-optation, etc.).</td></tr><tr id="1c50fe7c-0095-80d8-b8a0-dadd1a5677e9"><td id="&gt;FI_" class=""><strong>event_motion</strong> <em>(Optional)</em></td><td id="uBN]" class="">If applicable, determines if the event <strong>sharpens, neutralizes, or transforms</strong> a contradiction.</td></tr><tr id="1c50fe7c-0095-8004-9853-e1ca8688d252"><td id="&gt;FI_" class=""><strong>historical_flag</strong></td><td id="uBN]" class="">Marks whether the event is historical or contemporary.</td></tr><tr id="1c50fe7c-0095-8015-b0b7-c48f80940e22"><td id="&gt;FI_" class=""><strong>macro_micro</strong></td><td id="uBN]" class="">Classifies whether the event is <strong>Macro-Level (National, Global)</strong> or <strong>Micro-Level (Local, Regional).</strong></td></tr><tr id="1c50fe7c-0095-8092-b878-cd75e4ce5492"><td id="&gt;FI_" class=""><strong>event_relevance</strong></td><td id="uBN]" class="">Evaluates whether the event has <strong>Long-Term Political Impact</strong> or is a short-term occurrence.</td></tr></tbody></table><p id="1c50fe7c-0095-80fa-9a49-cde000bfc860" class="">✅ <code><strong>event_motion</strong></code><strong> is now optional</strong> to account for events that don’t convey motion.</p><h3 id="1c50fe7c-0095-807c-a285-d68ea3782b05" class=""><strong>Key Functions of the Events Sheet</strong></h3><p id="1c50fe7c-0095-808e-ab7a-fede098f7e3d" class="">✅ <strong>Tracks events historically and in real-time</strong> to capture the motion of contradictions.</p><p id="1c50fe7c-0095-80f4-9df0-c09694be19e2" class="">✅ <strong>Links each event to contradictions, entities, and struggles</strong> to ensure dynamic contradiction analysis.</p><p id="1c50fe7c-0095-8070-9517-c4e792f5f11a" class="">✅ <strong>Captures ideological distortions</strong> by storing multiple perspectives on an event.</p><p id="1c50fe7c-0095-8063-88da-d8b411861cda" class="">✅ <strong>Uses metadata fields to classify events based on their political and historical significance.</strong></p><hr id="1c50fe7c-0095-80de-9911-d964d5f63284"/><h3 id="1c30fe7c-0095-8015-8a1d-c8b38a71d511" class="">📌 <strong>3.8.2 Issues Sheet: Tracking Developing Events</strong></h3><p id="1c50fe7c-0095-8087-8bd0-d82149ac721a" class="">Issue Cards provide a <strong>structured framework for tracking contradictions that unfold over time</strong>. Unlike standalone events, Issue Cards ensure that contradictions are analyzed <strong>through their motion</strong>, capturing sharpening, neutralization, and transformation as they develop.</p><p id="1c50fe7c-0095-806f-aaac-cf2d562a7f6a" class="">The Issues Sheet tracks contradictions through a <strong>three-row structure</strong>:</p><ol type="1" id="1c50fe7c-0095-8040-bb2e-d87886639185" class="numbered-list" start="1"><li><strong>Row 1: Issue Title &amp; Description</strong> → Defines the core contradiction and struggle.</li></ol><ol type="1" id="1c50fe7c-0095-801c-8479-d3451b62b514" class="numbered-list" start="2"><li><strong>Row 2: Event Timeline</strong> → Tracks <strong>only factual updates</strong> of the situation (parent-child event linking).</li></ol><ol type="1" id="1c50fe7c-0095-8091-a010-f9a8e9e80484" class="numbered-list" start="3"><li><strong>Row 3: Three-Column Stance Model</strong> → Tracks ideological stances with multiple headlines, descriptions, and stance-revealing events.</li></ol><p id="1c50fe7c-0095-803a-bbad-c67c3ad657fe" class="">By structuring issues in this way, Zoomout prevents <strong>historical fragmentation</strong> and ensures that contradictions remain central to analysis.</p><h1 id="1c50fe7c-0095-807e-9b56-cb933faf4917" class=""><strong>Finalized Issues Sheet Schema</strong></h1><table id="1c50fe7c-0095-8038-b30f-ed36c85d7409" class="simple-table"><tbody><tr id="1c50fe7c-0095-8027-9a31-db2f7e4183ee"><td id="xb]t" class="">Field Name</td><td id="{g&gt;z" class="">Description</td></tr><tr id="1c50fe7c-0095-805c-9415-d32978fac3ad"><td id="xb]t" class=""><code>issue_id</code></td><td id="{g&gt;z" class="">Unique identifier for the issue.</td></tr><tr id="1c50fe7c-0095-801d-8fe8-f9b6c1773011"><td id="xb]t" class=""><code>issue_title</code></td><td id="{g&gt;z" class="">General issue title. Must be based on a <strong>specific developing event, not a category</strong>.</td></tr><tr id="1c50fe7c-0095-808f-a397-f94507fee550"><td id="xb]t" class=""><code>issue_description</code></td><td id="{g&gt;z" class="">Description of the contradiction at play.</td></tr><tr id="1c50fe7c-0095-806d-9fab-c75674542bfa"><td id="xb]t" class=""><code>issue_event_id</code></td><td id="{g&gt;z" class="">The event that triggered this issue.</td></tr><tr id="1c50fe7c-0095-80a7-bd3a-f53ceb1df288"><td id="xb]t" class=""><code>contradiction_id</code></td><td id="{g&gt;z" class="">Contradiction this issue is part of.</td></tr><tr id="1c50fe7c-0095-8002-ab47-d9549f2af43b"><td id="xb]t" class=""><code>struggle_id</code></td><td id="{g&gt;z" class="">Links to the broader struggle.</td></tr><tr id="1c50fe7c-0095-8026-b928-ee0a43b04299"><td id="xb]t" class=""><code>issue_status</code></td><td id="{g&gt;z" class="">Developing, Peaking, or Resolving.</td></tr><tr id="1c50fe7c-0095-80eb-ada1-f49da0124bc0"><td id="xb]t" class=""><code>issue_timeline_events</code></td><td id="{g&gt;z" class="">Tracks <strong>only factual developments</strong> of the issue (auto-linked via <code>parent_id</code>). <strong>Contradiction motion (Sharpening, Neutralizing, Transforming) is explicitly tracked for each event.</strong></td></tr><tr id="1c50fe7c-0095-8018-adee-fd46d571b3e2"><td id="xb]t" class=""><code>stance_1_headlines</code></td><td id="{g&gt;z" class="">List of multiple stance-specific news headlines (e.g., <strong>Pro-Union: [&#x27;Workers Fight Back Against Exploitation&#x27;, &#x27;Amazon Workers Demand Fair Wages&#x27;]</strong>).</td></tr><tr id="1c50fe7c-0095-8010-9b5c-e6dd82b05570"><td id="xb]t" class=""><code>stance_1_description</code></td><td id="{g&gt;z" class="">Description for Stance 1’s ideological position.</td></tr><tr id="1c50fe7c-0095-80fe-9a0c-fc13d71f2ca3"><td id="xb]t" class=""><code>stance_1_events</code></td><td id="{g&gt;z" class="">List of stance-revealing events for Stance 1.</td></tr><tr id="1c50fe7c-0095-8084-809d-fa937bda8401"><td id="xb]t" class=""><code>stance_2_headlines</code></td><td id="{g&gt;z" class="">List of multiple stance-specific news headlines (e.g., <strong>Reformist: [&#x27;Government Must Ensure Fair Elections&#x27;, &#x27;Labor Board to Review Amazon Case&#x27;]</strong>).</td></tr><tr id="1c50fe7c-0095-8077-9557-c6a8ed22cefb"><td id="xb]t" class=""><code>stance_2_description</code></td><td id="{g&gt;z" class="">Description for Stance 2’s ideological position.</td></tr><tr id="1c50fe7c-0095-803a-9701-d81d4704d10b"><td id="xb]t" class=""><code>stance_2_events</code></td><td id="{g&gt;z" class="">List of stance-revealing events for Stance 2.</td></tr><tr id="1c50fe7c-0095-804d-a892-daaac5b1d398"><td id="xb]t" class=""><code>stance_3_headlines</code></td><td id="{g&gt;z" class="">List of multiple stance-specific news headlines (e.g., <strong>Anti-Union: [&#x27;Unions Will Kill Amazon Jobs&#x27;, &#x27;Union Demands Will Hurt Small Businesses&#x27;]</strong>).</td></tr><tr id="1c50fe7c-0095-80c6-bbc1-d925511bc21f"><td id="xb]t" class=""><code>stance_3_description</code></td><td id="{g&gt;z" class="">Description for Stance 3’s ideological position.</td></tr><tr id="1c50fe7c-0095-805d-9cf3-d1efc108a464"><td id="xb]t" class=""><code>stance_3_events</code></td><td id="{g&gt;z" class="">List of stance-revealing events for Stance 3.</td></tr></tbody></table><hr id="1c50fe7c-0095-80e1-bab6-f68a82507190"/><h3 id="1c30fe7c-0095-8007-9a0f-f73dde885986" class="">📌 <strong>3.8.3 </strong>The Struggles Sheet: Tracking Organized Political Battles</h3><h3 id="1c50fe7c-0095-8061-b88d-e1c38648c1f8" class=""><strong>Struggles as the Aggregation of Political Battles</strong></h3><p id="1c50fe7c-0095-806c-a419-f1516e0e84ec" class="">The <strong>Struggles Sheet</strong> consolidates <strong>political battles across multiple events</strong> into structured categories, allowing users to track how contradictions manifest at different levels of struggle. Struggles are organized by:</p><ul id="1c50fe7c-0095-8037-a91a-fc677e9855dc" class="bulleted-list"><li style="list-style-type:disc"><strong>Scale:</strong> Local, national, or global.</li></ul><ul id="1c50fe7c-0095-806a-afc3-c216a49a62f7" class="bulleted-list"><li style="list-style-type:disc"><strong>Form:</strong> Electoral, direct action, armed struggle, legal battles, etc.</li></ul><ul id="1c50fe7c-0095-8092-a0d2-decd8b296e3c" class="bulleted-list"><li style="list-style-type:disc"><strong>Sector:</strong> Economic, political, social, cultural.</li></ul><p id="1c50fe7c-0095-80c0-98e3-e5bcc34e99c0" class="">Each struggle consists of multiple <strong>Issue Cards</strong>, ensuring that struggles are framed in terms of <strong>contradiction motion</strong> rather than as abstract topics.</p><h3 id="1c50fe7c-0095-804d-bd09-f6320e7c7485" class=""><strong>Struggles as a Link Between Events and Contradictions</strong></h3><p id="1c50fe7c-0095-80df-8c70-cbbb7cfa5fef" class="">Since struggles emerge from contradictions, the system ensures that every tracked struggle is:</p><ol type="1" id="1c50fe7c-0095-80ef-a949-cc10aa09fdb4" class="numbered-list" start="1"><li><strong>Rooted in material contradictions</strong> (e.g., labor disputes in a capitalist structure).</li></ol><ol type="1" id="1c50fe7c-0095-80a1-af50-faef94c1794a" class="numbered-list" start="2"><li><strong>Connected to ruling-class responses</strong> (Legal Containment, Repression, Narrative Manipulation, Co-optation).</li></ol><ol type="1" id="1c50fe7c-0095-8074-8ccf-c5f57e3a7edc" class="numbered-list" start="3"><li><strong>Structured dynamically</strong>, evolving through real-time updates in the Events Sheet.</li></ol><p id="1c50fe7c-0095-8067-a28b-e6e07fa1d2e8" class="">By integrating struggles into the broader contradiction framework, the <strong>Struggles Sheet provides a historical-materialist view</strong> of political battles, ensuring that contradictions are not only tracked but actively analyzed.</p><p id="1c50fe7c-0095-80eb-a722-f34417885c84" class="">🔥 <strong>This sheet allows Zoomout to capture how contradictions become the terrain of organized battles, shaping history.</strong> 🚀</p><h1 id="1c50fe7c-0095-80eb-b18b-d54b3e697506" class=""><strong>Finalized Struggles Sheet Schema</strong></h1><table id="1c50fe7c-0095-80b0-9584-fa0599362db7" class="simple-table"><tbody><tr id="1c50fe7c-0095-800e-ab57-d767ea71616f"><td id="DlW?" class=""><strong>Field Name</strong></td><td id="F;?B" class=""><strong>Description</strong></td></tr><tr id="1c50fe7c-0095-8019-a641-db05e6cab108"><td id="DlW?" class=""><strong>struggle_id</strong></td><td id="F;?B" class="">Unique identifier for the struggle.</td></tr><tr id="1c50fe7c-0095-80ad-9d83-e96a93be6e90"><td id="DlW?" class=""><strong>struggle_name</strong></td><td id="F;?B" class="">Title summarizing the struggle.</td></tr><tr id="1c50fe7c-0095-8065-a4a3-c8c3aa005ff7"><td id="DlW?" class=""><strong>struggle_description</strong></td><td id="F;?B" class="">Overview of the struggle, its origins, and primary contradictions.</td></tr><tr id="1c50fe7c-0095-8082-9d69-f4e4b532e707"><td id="DlW?" class=""><strong>contradiction_id</strong></td><td id="F;?B" class="">Links the struggle to its underlying contradiction(s).</td></tr><tr id="1c50fe7c-0095-8096-bcea-d07e4edf8e07"><td id="DlW?" class=""><strong>linked_issues</strong></td><td id="F;?B" class="">Multi-select field tracking all issues that fall under this struggle.</td></tr><tr id="1c50fe7c-0095-8029-9c82-c2a6203af5ae"><td id="DlW?" class=""><strong>scale</strong></td><td id="F;?B" class="">Classifies the struggle as <strong>Local, National, or Global</strong> (<em>finer classification may be added in future iterations</em>).</td></tr><tr id="1c50fe7c-0095-80fb-a544-e1a4effc8271"><td id="DlW?" class=""><strong>form</strong></td><td id="F;?B" class="">Categorizes the struggle (Electoral, Direct Action, Armed Struggle, etc.).</td></tr><tr id="1c50fe7c-0095-80d9-b81a-cdfb09e2ac55"><td id="DlW?" class=""><strong>sector</strong></td><td id="F;?B" class="">Identifies the sector of struggle (Economic, Political, Cultural, etc.).</td></tr><tr id="1c50fe7c-0095-8008-ad82-de4b88a67542"><td id="DlW?" class=""><strong>historical_development</strong></td><td id="F;?B" class="">Free-text field for tracking key moments in the struggle’s evolution.</td></tr><tr id="1c50fe7c-0095-80ca-a9b2-f9df1516e71f"><td id="DlW?" class=""><strong>current_status</strong></td><td id="F;?B" class="">Defines whether the struggle is <strong>Active, Dormant, or Concluded.</strong></td></tr></tbody></table><h3 id="1c30fe7c-0095-802e-a4f2-c51af332ee6b" class="">📌 <strong>3.8.4 Contradictions Sheet</strong></h3><p id="1c50fe7c-0095-802d-b7a0-d9a247ca06f3" class="">The <strong>Contradiction Sheet</strong> dynamically tracks contradictions as they <strong>sharpen, neutralize, or transform</strong> over time. It is used to <strong>connect events to the structural issues they reinforce or challenge</strong>.</p><p id="1c50fe7c-0095-8055-8b62-d49b5095182c" class="">Key aspects of the <strong>Contradiction Sheet</strong>:</p><ul id="1c50fe7c-0095-80be-9d9c-e4f16dfabed9" class="bulleted-list"><li style="list-style-type:disc"><strong>Tracks contradiction intensity</strong> (Sharpening, Neutralizing, Transforming).</li></ul><ul id="1c50fe7c-0095-8065-8686-cf3c4500f77b" class="bulleted-list"><li style="list-style-type:disc"><strong>Connects contradictions to real-world events</strong>.</li></ul><ul id="1c50fe7c-0095-8012-a181-e53f89415ef5" class="bulleted-list"><li style="list-style-type:disc"><strong>Classifies contradictions by type</strong> (Class, Caste, Gender, State, Geopolitical).</li></ul><h1 id="1c50fe7c-0095-809a-8fe3-ca9165d47374" class=""><strong>Finalized Contradiction Sheet Schema </strong></h1><table id="1c50fe7c-0095-8064-96fd-c7eafc94a8ad" class="simple-table"><tbody><tr id="1c50fe7c-0095-8031-a78f-f2187b424b03"><td id="sm;R" class=""><strong>Field Name</strong></td><td id="osOq" class=""><strong>Description</strong></td></tr><tr id="1c50fe7c-0095-80a3-99a8-f46d968a59c7"><td id="sm;R" class=""><strong>contradiction_id</strong></td><td id="osOq" class="">Unique identifier for the contradiction.</td></tr><tr id="1c50fe7c-0095-8047-9f94-d3cbfd97fbaf"><td id="sm;R" class=""><strong>first_major_flashpoint_event_id</strong></td><td id="osOq" class="">First event that <strong>made this contradiction publicly visible or escalated it</strong> (not necessarily its origin).</td></tr><tr id="1c50fe7c-0095-806b-b189-cd247a4944ba"><td id="sm;R" class=""><strong>contradiction_type</strong></td><td id="osOq" class="">Classification (<strong>Class, Caste, Gender, State, Geopolitical</strong>).</td></tr><tr id="1c50fe7c-0095-80c8-8925-e29116b3ac5b"><td id="sm;R" class=""><strong>contradiction_description</strong></td><td id="osOq" class="">Summary of the contradiction.</td></tr><tr id="1c50fe7c-0095-80ff-a467-f0b8ad49293c"><td id="sm;R" class=""><strong>contradiction_status</strong></td><td id="osOq" class="">Tracks the <strong>current phase</strong> of the contradiction (<strong>Latent, Developing, Sharp, Explosive</strong>).</td></tr><tr id="1c50fe7c-0095-8036-8375-ddbabaf2d15e"><td id="sm;R" class=""><strong>contradiction_intensity</strong></td><td id="osOq" class="">Determines if the contradiction is <strong>Sharpening, Neutralizing, or Transforming.</strong></td></tr><tr id="1c50fe7c-0095-80ff-a736-e2c6403e717f"><td id="sm;R" class=""><strong>root_structure</strong></td><td id="osOq" class="">Identifies the <strong>economic, political, social, or cultural structure</strong> producing this contradiction.</td></tr><tr id="1c50fe7c-0095-805e-a21d-e570a1add631"><td id="sm;R" class=""><strong>linked_struggles</strong></td><td id="osOq" class="">Multi-select field linking contradictions to struggles.</td></tr><tr id="1c50fe7c-0095-8055-a5eb-db42a29ce137"><td id="sm;R" class=""><strong>linked_issues</strong></td><td id="osOq" class="">Multi-select field linking contradictions to specific issues.</td></tr><tr id="1c50fe7c-0095-802e-b3b1-eaa0f29ffb58"><td id="sm;R" class=""><strong>contradiction_priority</strong></td><td id="osOq" class="">Classifies contradiction as <strong>Principal, Secondary, or Tertiary</strong> in the historical moment.</td></tr><tr id="1c50fe7c-0095-8057-9933-fabbfa9c4e06"><td id="sm;R" class=""><strong>historical_motion</strong></td><td id="osOq" class="">Free-text field for tracking key shifts in contradiction development.</td></tr></tbody></table><h3 id="1c50fe7c-0095-803b-82e5-ea4b094532fa" class="">📌 <strong>3.8.5 Theory Sheet</strong></h3><p id="1c50fe7c-0095-8055-aa5e-c97a6512437e" class="">The <strong>Theory Sheet</strong> ensures that ideological frameworks are mapped to real-world contradictions and political shifts. It allows the system to <strong>connect political actors, contradictions, and events to relevant theoretical texts</strong>.</p><p id="1c50fe7c-0095-807d-8218-d0e28ce5612e" class="">Key aspects of the <strong>Theory Sheet</strong>:</p><ul id="1c50fe7c-0095-802c-b8ce-d29b4600bdc0" class="bulleted-list"><li style="list-style-type:disc"><strong>Categorizes theoretical sources</strong> (Post, Article, Book, PDF).</li></ul><ul id="1c50fe7c-0095-800f-9827-fd6ad15b228e" class="bulleted-list"><li style="list-style-type:disc"><strong>Links theories to entities and contradictions</strong> (via WHO field).</li></ul><ul id="1c50fe7c-0095-8029-b6a8-fbffdc8cc583" class="bulleted-list"><li style="list-style-type:disc"><strong>Provides political spectrum alignment</strong> for each theory.</li></ul><ul id="1c50fe7c-0095-8023-af80-f3599509ce82" class="bulleted-list"><li style="list-style-type:disc"><strong>Allows for retrieval via keywords</strong> for research purposes.</li></ul><h1 id="1c50fe7c-0095-8019-8250-f6d31920708f" class=""><strong>Finalized Theory Sheet Schema</strong></h1><table id="1c50fe7c-0095-8084-9fed-e6b07f0b2638" class="simple-table"><tbody><tr id="1c50fe7c-0095-80b4-ac32-f75668eca0eb"><td id="e;Dd" class=""><strong>Field Name</strong></td><td id="}iY_" class=""><strong>Description</strong></td></tr><tr id="1c50fe7c-0095-8092-ac83-eb19b4c933b2"><td id="e;Dd" class=""><strong>theory_id</strong></td><td id="}iY_" class="">Unique identifier for the theoretical entry.</td></tr><tr id="1c50fe7c-0095-8067-a30f-cc79a9a9d826"><td id="e;Dd" class=""><strong>title</strong></td><td id="}iY_" class="">Title of the theoretical work.</td></tr><tr id="1c50fe7c-0095-8039-a58e-ed163c358e2a"><td id="e;Dd" class=""><strong>description</strong></td><td id="}iY_" class="">Detailed theoretical text.</td></tr><tr id="1c50fe7c-0095-809b-8a65-d485e7fc9447"><td id="e;Dd" class=""><strong>author</strong></td><td id="}iY_" class="">Thinker behind the theory.</td></tr><tr id="1c50fe7c-0095-80b1-b716-fc60549167cf"><td id="e;Dd" class=""><strong>abstract</strong></td><td id="}iY_" class="">Brief summary of the theory.</td></tr><tr id="1c50fe7c-0095-8083-b29c-d234761b5f79"><td id="e;Dd" class=""><strong>publication_date</strong></td><td id="}iY_" class="">Date of publication.</td></tr><tr id="1c50fe7c-0095-80b9-a1d6-d19a1cb00594"><td id="e;Dd" class=""><strong>src_type</strong></td><td id="}iY_" class="">Type of source (Post, Article, Book, PDF).</td></tr><tr id="1c50fe7c-0095-8006-9da5-d0e4fd32e4a6"><td id="e;Dd" class=""><strong>platform</strong></td><td id="}iY_" class="">Platform where the post was published (if <code>src_type</code> is Post).</td></tr><tr id="1c50fe7c-0095-8003-9618-f17ed3c5a48a"><td id="e;Dd" class=""><strong>domain</strong></td><td id="}iY_" class="">Domain of the article (if <code>src_type</code> is Article).</td></tr><tr id="1c50fe7c-0095-8002-8096-d907fdd1f475"><td id="e;Dd" class=""><strong>keywords</strong></td><td id="}iY_" class="">Multi-select field for keywords.</td></tr><tr id="1c50fe7c-0095-806e-b787-f6464531f4f6"><td id="e;Dd" class=""><strong>entity_name</strong></td><td id="}iY_" class="">Multi-select for related entities (Displayed as WHO in forms).</td></tr><tr id="1c50fe7c-0095-8015-a165-e3f41461a175"><td id="e;Dd" class=""><strong>linked_contradictions</strong></td><td id="}iY_" class="">Multi-select field linking the theory to contradictions. <strong>(New Field)</strong></td></tr><tr id="1c50fe7c-0095-80c1-8b81-e58bee15902d"><td id="e;Dd" class=""><strong>political_spectrum</strong></td><td id="}iY_" class="">Classification (Expanded: Marxist-Leninist, Anarchist, Social Democrat, Conservative, Hindutva, etc.). <strong>(Expanded for Nuance)</strong></td></tr><tr id="1c50fe7c-0095-80f8-89fc-c94676ab9937"><td id="e;Dd" class=""><strong>key_excerpts</strong></td><td id="}iY_" class="">Free-text field for important passages or quotes from the text. <strong>(New Field for Direct References)</strong></td></tr><tr id="1c50fe7c-0095-8061-9e4d-e6544ab8c321"><td id="e;Dd" class=""><strong>url</strong></td><td id="}iY_" class="">URL of the source (if applicable).</td></tr></tbody></table><h3 id="1c50fe7c-0095-8070-a4ac-f2ed9184673a" class="">📌 <strong>3.8.6 Structures Sheet </strong></h3><p id="1c50fe7c-0095-80a4-8f57-c7a1d0906185" class="">The <strong>Structures Sheet</strong> is a core component of Zoomout’s data model, ensuring that contradictions are linked to their <strong>material foundations.</strong> Unlike struggles and events, which evolve dynamically over shorter periods, <strong>structures represent the deep-rooted systems that shape contradictions over long historical periods.</strong></p><p id="1c50fe7c-0095-80a8-9c14-d3d6b2998cfa" class="">📌 <strong>Why the Structures Sheet is Critical:</strong></p><p id="1c50fe7c-0095-809b-9b2c-e7a7f02dc1e0" class="">✅ <strong>It ensures that contradictions are not treated as abstract categories but as real conflicts grounded in material conditions.</strong></p><p id="1c50fe7c-0095-8007-b17c-cd23875551a1" class="">✅ <strong>It provides a long-term historical foundation for contradiction tracking.</strong></p><p id="1c50fe7c-0095-8058-849c-fb9512c8a57b" class="">✅ <strong>It helps users analyze how structures shape, suppress, or intensify struggles over time.</strong></p><p id="1c50fe7c-0095-80f8-85ad-f813e68431af" class="">🚀 <strong>By integrating the Structures Sheet, Zoomout moves beyond surface-level analysis and ensures that all contradictions are studied within their historical and materialist context.</strong></p><hr id="1c50fe7c-0095-8068-920b-d17cc2354674"/><h1 id="1c50fe7c-0095-8044-bc4a-dd7fa8258472" class=""><strong>Finalized Structures Sheet Schema</strong></h1><table id="1c50fe7c-0095-8050-b713-d7e968e21ca6" class="simple-table"><tbody><tr id="1c50fe7c-0095-8068-8fb5-e3de21d6a599"><td id="]e|d" class=""><strong>Field Name</strong></td><td id="~M`W" class=""><strong>Description</strong></td></tr><tr id="1c50fe7c-0095-8039-92eb-e39cbe79453f"><td id="]e|d" class=""><strong>structure_id</strong></td><td id="~M`W" class="">Unique identifier for the structure.</td></tr><tr id="1c50fe7c-0095-8020-9875-fe5c164826dd"><td id="]e|d" class=""><strong>structure_name</strong></td><td id="~M`W" class="">Name summarizing the structure (e.g., Capitalist Economy, State Bureaucracy, Patriarchy, etc.).</td></tr><tr id="1c50fe7c-0095-80a0-a9d2-ccfe0f351bf1"><td id="]e|d" class=""><strong>structure_type</strong></td><td id="~M`W" class="">Categorization (<strong>Economic, Political, Social, Cultural</strong> with subcategories for granularity).</td></tr><tr id="1c50fe7c-0095-806a-b761-ccbe13ac7288"><td id="]e|d" class=""><strong>description</strong></td><td id="~M`W" class="">A brief explanation of how the structure functions.</td></tr><tr id="1c50fe7c-0095-8057-bc04-d0be709ef6a0"><td id="]e|d" class=""><strong>linked_contradictions</strong></td><td id="~M`W" class="">Multi-select field linking the structure to contradictions it produces.</td></tr><tr id="1c50fe7c-0095-8053-bd06-c72c8d413293"><td id="]e|d" class=""><strong>linked_struggles</strong></td><td id="~M`W" class="">Multi-select field linking the structure to struggles challenging it.</td></tr><tr id="1c50fe7c-0095-80c0-97aa-ff8867c0c7bd"><td id="]e|d" class=""><strong>linked_entities</strong></td><td id="~M`W" class="">Multi-select field tracking <strong>institutions, corporations, or political factions controlling this structure.</strong></td></tr><tr id="1c50fe7c-0095-80ba-aeac-e3ef920a7606"><td id="]e|d" class=""><strong>structure_evolution</strong></td><td id="~M`W" class=""><strong>Structured tracking of transformations</strong> (Date, Transformation Type, Description).</td></tr></tbody></table><p id="1c50fe7c-0095-8049-acb8-ef1623597e43" class="">🔥 <strong>This structuring ensures that every contradiction is analyzed based on its historical and material foundation.</strong></p><h3 id="1c50fe7c-0095-8088-83bc-cff502a27408" class="">📌 <strong>3.8.7 Relationship Sheet</strong></h3><h3 id="1c50fe7c-0095-80bf-aace-feb0ff2e5c2d" class=""><strong>Introduction</strong></h3><p id="1c50fe7c-0095-80ea-acbc-dd61da50a053" class="">The Relationship Sheet in Zoomout is designed to map <strong>direct interactions between political entities</strong> within contradictions and struggles. Unlike Power Mapping, which tracks how contradictions influence alliances, the Relationship Sheet focuses on <strong>documented relationships between actors</strong> in both cooperative and antagonistic contexts.</p><h3 id="1c50fe7c-0095-801e-9f87-efd9cfb99cc4" class=""><strong>Core Differences Between Relationship Sheet and Power Mapping</strong></h3><table id="1c50fe7c-0095-80a8-b8b6-efa4ca247a24" class="simple-table"><tbody><tr id="1c50fe7c-0095-80c5-b0bb-e69a9ee568d2"><td id="{r=G" class=""><strong>Feature</strong></td><td id="LO_Z" class=""><strong>Relationship Sheet</strong></td><td id="zhpO" class=""><strong>Power Mapping</strong></td></tr><tr id="1c50fe7c-0095-80d0-9897-e2f9c1cda9c0"><td id="{r=G" class=""><strong>Focus</strong></td><td id="LO_Z" class="">Direct relationships between entities</td><td id="zhpO" class="">Contradiction-driven alliances and conflicts</td></tr><tr id="1c50fe7c-0095-803b-9ada-ff1c5a15222f"><td id="{r=G" class=""><strong>Data Source</strong></td><td id="LO_Z" class="">Recorded statements, agreements, disputes</td><td id="zhpO" class="">Historical motion of contradictions</td></tr><tr id="1c50fe7c-0095-805b-ba92-e410028fa610"><td id="{r=G" class=""><strong>Example Data</strong></td><td id="LO_Z" class="">Political coalition agreements, corporate deals</td><td id="zhpO" class="">How a ruling party realigns with capitalists</td></tr><tr id="1c50fe7c-0095-805d-9b4b-cf99f9955d1b"><td id="{r=G" class=""><strong>Scope</strong></td><td id="LO_Z" class="">Organizational, political, financial ties</td><td id="zhpO" class="">Class-based and ideological realignments</td></tr></tbody></table><h1 id="1c50fe7c-0095-8083-8f2c-cfb91aacbd58" class=""><strong>Finalized Relationship Sheet Schema</strong></h1><table id="1c50fe7c-0095-8063-a2c6-c6d712d3965a" class="simple-table"><tbody><tr id="1c50fe7c-0095-8068-88a9-d5fa58891033"><td id="J]ss" class=""><strong>Field Name</strong></td><td id="dxy[" class=""><strong>Description</strong></td></tr><tr id="1c50fe7c-0095-8096-8434-f9cac3b8b306"><td id="J]ss" class=""><strong>relationship_id</strong></td><td id="dxy[" class="">Unique identifier for the relationship.</td></tr><tr id="1c50fe7c-0095-8009-8935-ff5dad51684a"><td id="J]ss" class=""><strong>entity_1</strong></td><td id="dxy[" class="">First entity involved in the relationship.</td></tr><tr id="1c50fe7c-0095-808f-b3da-f0120567223e"><td id="J]ss" class=""><strong>entity_2</strong></td><td id="dxy[" class="">Second entity involved in the relationship.</td></tr><tr id="1c50fe7c-0095-809a-a4c1-caf0866c2461"><td id="J]ss" class=""><strong>relationship_type</strong></td><td id="dxy[" class="">Categorization (<strong>Strategic Alliance, Tactical Alliance, Ideological Split, Direct Conflict, Patronage, Co-optation, Transactional</strong>).</td></tr><tr id="1c50fe7c-0095-8084-bdad-d4c9ac68b2b3"><td id="J]ss" class=""><strong>contradiction_id</strong></td><td id="dxy[" class="">The contradiction that contextualizes this relationship.</td></tr><tr id="1c50fe7c-0095-80e9-b8af-cd256fa83855"><td id="J]ss" class=""><strong>struggle_id</strong></td><td id="dxy[" class="">The struggle in which this relationship is significant.</td></tr><tr id="1c50fe7c-0095-80c4-86dc-c8bab506cbfc"><td id="J]ss" class=""><strong>linked_events</strong></td><td id="dxy[" class="">Multi-select field tracking <strong>key events</strong> that made this relationship public.</td></tr><tr id="1c50fe7c-0095-8029-87ec-f5f66c95b637"><td id="J]ss" class=""><strong>relationship_timeline</strong></td><td id="dxy[" class=""><strong>Structured tracking of past realignments</strong> (Date, Shift Type, Description).</td></tr><tr id="1c50fe7c-0095-80ce-9e12-da30ebc33d68"><td id="J]ss" class=""><strong>historical_context</strong></td><td id="dxy[" class="">Free Text Field (Notes on past alliances or shifts in the relationship).</td></tr></tbody></table><h3 id="1c50fe7c-0095-8077-9b4f-c33a683c6478" class=""><strong>Why Relationship Mapping is Necessary</strong></h3><p id="1c50fe7c-0095-800b-a5ec-ceb804b1f46c" class="">✅ <strong>Ensures political forces are tracked not just through contradictions but through concrete interactions.</strong></p><p id="1c50fe7c-0095-80c4-8223-e20aad9198b8" class="">✅ <strong>Distinguishes between ideological alignment (Power Mapping) and documented interactions (Relationship Sheet).</strong></p><p id="1c50fe7c-0095-80bd-9c27-c53fcc7d6a21" class="">✅ <strong>Reveals shifts in alliances that indicate ruling-class adaptation strategies.</strong></p><p id="1c50fe7c-0095-808d-ad5b-f0ee23b0f022" class="">🚀 <strong>With this refinement, the Relationship Sheet now functions as a structured political intelligence tool, distinct from Power Mapping while remaining embedded in contradiction tracking.</strong></p><h3 id="1c50fe7c-0095-804b-9a09-e8ca861d128a" class="">📌 <strong>3.8.8 Entities Sheet</strong></h3><p id="1c50fe7c-0095-808c-bdf5-cfa2a2202284" class="">Entities play a central role in contradiction motion, and Zoomout automates their detection to ensure accurate contradiction tracking. The <strong>Entities Sheet</strong> dynamically pulls data from event descriptions and external sources to link political actors to relevant events.</p><h3 id="1c50fe7c-0095-806d-a72f-f275e0763569" class=""><strong>Automated Entity Detection System</strong></h3><p id="1c50fe7c-0095-80f6-a5fa-f184c8b36951" class="">🚀 <strong>NER (Named Entity Recognition) Model Integration</strong></p><ul id="1c50fe7c-0095-80a9-8c83-d7c92d8924a2" class="bulleted-list"><li style="list-style-type:disc">Extracts <strong>organizations, movements, and state actors</strong> from event descriptions.</li></ul><ul id="1c50fe7c-0095-8006-b977-c2e0ea7cee32" class="bulleted-list"><li style="list-style-type:disc">Cross-references entities with past event data for accuracy.</li></ul><p id="1c50fe7c-0095-809d-913b-e6a44e9d4e29" class="">✅ <strong>How It Works:</strong><br/>1️⃣ <br/><strong>When an event is logged</strong>, the system scans its description for known entities.<br/>2️⃣ <br/><strong>The entity is matched against historical data</strong> to detect prior involvement in contradictions.<br/>3️⃣ <br/><strong>Users can confirm or modify the detected entities</strong> to refine tracking.</p><h3 id="1c50fe7c-0095-8080-bd1b-c13f03fdf75e" class=""><strong>📌 Auto-Linking Entities to Contradictions</strong></h3><ul id="1c50fe7c-0095-80b7-a56a-f1ebc43c6479" class="bulleted-list"><li style="list-style-type:disc">The system <strong>categorizes each entity</strong> based on its <strong>role within contradictions</strong>:<ul id="1c50fe7c-0095-80f8-b51c-c60ab27cea15" class="bulleted-list"><li style="list-style-type:circle"><strong>Primary Actors</strong> → Directly engaged in struggles (e.g., labor unions, revolutionary groups).</li></ul><ul id="1c50fe7c-0095-8059-a859-ec9a1cca3994" class="bulleted-list"><li style="list-style-type:circle"><strong>Secondary Actors</strong> → Indirectly involved but influential (e.g., NGOs, think tanks, academic institutions).</li></ul><ul id="1c50fe7c-0095-8036-b00a-e5225e3ca052" class="bulleted-list"><li style="list-style-type:circle"><strong>Ruling-Class Institutions</strong> → State bodies, corporate networks, and media structures that shape contradiction motion.</li></ul></li></ul><p id="1c50fe7c-0095-80e1-a152-f655c03e496e" class="">🔥 <strong>Example:</strong></p><ul id="1c50fe7c-0095-80cd-b550-e34eca8e9ac5" class="bulleted-list"><li style="list-style-type:disc"><strong>Event:</strong> Large-scale student protests against austerity measures.</li></ul><ul id="1c50fe7c-0095-8072-b00f-cdbb45cd4cd6" class="bulleted-list"><li style="list-style-type:disc"><strong>Auto-Detected Entities:</strong><ul id="1c50fe7c-0095-808e-80c1-c5470749b144" class="bulleted-list"><li style="list-style-type:circle"><strong>Student Federation (Primary Actor)</strong> – Organizing the protest.</li></ul><ul id="1c50fe7c-0095-80c7-98c6-c95a536e6d12" class="bulleted-list"><li style="list-style-type:circle"><strong>Education Ministry (Ruling-Class Institution)</strong> – Target of demands.</li></ul><ul id="1c50fe7c-0095-808b-92c6-cbe2c8d95cd8" class="bulleted-list"><li style="list-style-type:circle"><strong>Corporate Media (Narrative Manipulation)</strong> – Framing protests as disruptive.</li></ul></li></ul><h3 id="1c50fe7c-0095-80f8-bba8-c67307b6e1a0" class=""><strong>📌 Linking Entities to Their Historical Role in Contradictions</strong></h3><ul id="1c50fe7c-0095-80e5-a473-ebfcfc79931a" class="bulleted-list"><li style="list-style-type:disc">Zoomout <strong>tracks stance shifts</strong> over time (e.g., reformist groups radicalizing after repression).</li></ul><ul id="1c50fe7c-0095-80b6-94ea-c3abef892895" class="bulleted-list"><li style="list-style-type:disc">Ensures contradiction analysis is <strong>historically dynamic</strong>, not just event-centric.</li></ul><p id="1c50fe7c-0095-801c-9faf-eaa222a064f6" class="">🚀 <strong>This automation enhances contradiction tracking, making Zoomout a powerful tool for mapping historical motion.</strong></p><h1 id="1c50fe7c-0095-8010-ae73-f4a79f3d47c9" class=""><strong>Finalized Entities Sheet Schema</strong></h1><table id="1c50fe7c-0095-8054-9303-c45629b68c63" class="simple-table"><tbody><tr id="1c50fe7c-0095-8039-a89b-d71de30c01de"><td id="oXSL" class=""><strong>Field Name</strong></td><td id="|dBk" class=""><strong>Description</strong></td></tr><tr id="1c50fe7c-0095-80b1-a380-f968b755b772"><td id="oXSL" class=""><strong>entity_id</strong></td><td id="|dBk" class="">Unique identifier for the entity.</td></tr><tr id="1c50fe7c-0095-8055-a632-cbdbf3540f30"><td id="oXSL" class=""><strong>entity_name</strong></td><td id="|dBk" class="">Name of the entity (e.g., organization, party, movement, or individual).</td></tr><tr id="1c50fe7c-0095-80d2-81fe-ccd08bb8cb42"><td id="oXSL" class=""><strong>entity_type</strong></td><td id="|dBk" class="">Categorizes entity as Political Party, State Institution, Movement, Corporation, Media, etc.</td></tr><tr id="1c50fe7c-0095-80d9-b03b-d736ae9e94b1"><td id="oXSL" class=""><strong>bio</strong></td><td id="|dBk" class="">Free-text field for biographical information about the entity.</td></tr><tr id="1c50fe7c-0095-80d7-a0f4-eaf57c7da233"><td id="oXSL" class=""><strong>entity_stance_role</strong></td><td id="|dBk" class="">Defines the entity’s stance in contradictions (Pro-Struggle, Anti-Struggle, Ruling-Class Actor, Passive).</td></tr><tr id="1c50fe7c-0095-801b-b45f-c1215f4fe02c"><td id="oXSL" class=""><strong>SPECTRUM</strong></td><td id="|dBk" class="">Classifies the entity’s general position on the political spectrum (Left, Centre, Right).</td></tr><tr id="1c50fe7c-0095-80d1-b578-f3588e430bf4"><td id="oXSL" class=""><strong>ideological_category</strong></td><td id="|dBk" class="">Specific political ideology (e.g., Revolutionary Left, Social Democratic, Neoliberal, etc.).</td></tr><tr id="1c50fe7c-0095-800e-a436-edc23d72327b"><td id="oXSL" class=""><strong>linked_struggles</strong></td><td id="|dBk" class="">Multi-select field linking the entity to struggles it is involved in.</td></tr><tr id="1c50fe7c-0095-80ac-befb-ef331593e46a"><td id="oXSL" class=""><strong>linked_issues</strong></td><td id="|dBk" class="">Multi-select field linking the entity to issues where it has taken a stance.</td></tr><tr id="1c50fe7c-0095-80d0-9da4-f7e179bc5c38"><td id="oXSL" class=""><strong>linked_events</strong></td><td id="|dBk" class="">Multi-select field linking the entity to events it was involved in.</td></tr><tr id="1c50fe7c-0095-800b-b054-c64f901c9996"><td id="oXSL" class=""><strong>relations</strong></td><td id="|dBk" class="">Tracks alliances and conflicts (Allied With, Opposed To, Co-opted By, Brokered With).</td></tr><tr id="1c50fe7c-0095-80eb-9a7f-e7ca0eca465a"><td id="oXSL" class=""><strong>stances_history</strong></td><td id="|dBk" class="">List of events/issues where the entity revealed its stances, showing ideological shifts over time.</td></tr></tbody></table><h3 id="1c50fe7c-0095-807f-9460-d4ec42141ea5" class="">📌 <strong>3.8.9 Timeline Sheet</strong></h3><p id="1c50fe7c-0095-807c-ac92-ca986c8a7109" class="">Timelines ensure that contradictions are mapped within <strong>historical struggles</strong> rather than being treated in isolation. Events can be linked to multiple timelines based on <strong>historical, economic, and class-based developments</strong>.</p><ul id="1c50fe7c-0095-8025-a5bd-c591011bc2a3" class="bulleted-list"><li style="list-style-type:disc"><strong>Example 1:</strong> The Indian Emergency (1975-77) is linked to both the <strong>Fascism vs. Democracy contradiction</strong> and the <strong>State vs. People contradiction</strong>.</li></ul><ul id="1c50fe7c-0095-8039-9862-d5f894b9e1ba" class="bulleted-list"><li style="list-style-type:disc"><strong>Example 2:</strong> The Agrarian Crisis in Punjab today connects to <strong>historical peasant struggles from the 1980s and earlier</strong>.</li></ul><p id="1c50fe7c-0095-807b-8299-c68cbcb10395" class=""><strong>Tracking contradictions over time is essential to understanding how political struggles evolve.</strong> Some contradictions escalate rapidly, while others re-emerge cyclically over decades. The <strong>Timeline Table</strong> helps structure these developments by:</p><ul id="1c50fe7c-0095-8015-ad01-cb497a7466e6" class="bulleted-list"><li style="list-style-type:disc"><strong>Linking related events into historical struggles</strong> (e.g., multiple waves of farmers&#x27; protests).</li></ul><ul id="1c50fe7c-0095-8022-9c76-ff933cbc7e5c" class="bulleted-list"><li style="list-style-type:disc"><strong>Identifying trends in contradiction sharpening or neutralization over time.</strong></li></ul><ul id="1c50fe7c-0095-80b0-9376-c3c1c3bf9cfe" class="bulleted-list"><li style="list-style-type:disc"><strong>Helping users track contradiction resurgence across different eras and political shifts.</strong></li></ul><p id="1c50fe7c-0095-8039-a90e-f5e8353739b4" class="">This mapping ensures that contradictions are studied <strong>in their full historical context</strong> rather than as isolated events.</p><p id="1c50fe7c-0095-80bb-9b7c-dd62510ac777" class="">By using timelines, Zoomout enables users to see <strong>not just isolated events, but the larger historical forces shaping contradictions</strong>.</p><h1 id="1c50fe7c-0095-80e8-80f7-f35039e71eef" class=""><strong>Finalized Timeline Sheet Schema</strong></h1><table id="1c50fe7c-0095-80fb-a0da-e2dd081136dd" class="simple-table"><tbody><tr id="1c50fe7c-0095-801c-9305-d4916a55c032"><td id="w[c&lt;" class=""><strong>Field Name</strong></td><td id="Q&lt;@M" class=""><strong>Description</strong></td></tr><tr id="1c50fe7c-0095-8000-a533-d70df91edc85"><td id="w[c&lt;" class=""><strong>timeline_id</strong></td><td id="Q&lt;@M" class="">Unique identifier for the timeline.</td></tr><tr id="1c50fe7c-0095-8017-8a92-fc2432e2425d"><td id="w[c&lt;" class=""><strong>timeline_name</strong></td><td id="Q&lt;@M" class="">Title summarizing the timeline.</td></tr><tr id="1c50fe7c-0095-807a-b404-d0a91394ba82"><td id="w[c&lt;" class=""><strong>description</strong></td><td id="Q&lt;@M" class="">Summary of the timeline’s focus</td></tr><tr id="1c50fe7c-0095-8019-a51d-dcc819e5d4b2"><td id="w[c&lt;" class=""><strong>linked_contradiction</strong></td><td id="Q&lt;@M" class="">Specifies the contradiction being tracked in this timeline.</td></tr><tr id="1c50fe7c-0095-8009-a009-d68b41903ece"><td id="w[c&lt;" class=""><strong>linked_struggle</strong></td><td id="Q&lt;@M" class="">Links the timeline to a broader struggle.</td></tr><tr id="1c50fe7c-0095-804f-8e1e-c22d1f310415"><td id="w[c&lt;" class=""><strong>linked_events</strong></td><td id="Q&lt;@M" class="">Multi-select field tracking <strong>key events</strong> shaping this timeline.</td></tr><tr id="1c50fe7c-0095-8043-9392-e577baa8a42e"><td id="w[c&lt;" class=""><strong>linked_entities</strong></td><td id="Q&lt;@M" class="">Multi-select field tracking <strong>key political actors</strong> involved in the timeline.</td></tr><tr id="1c50fe7c-0095-8040-be01-d2bae9e89475"><td id="w[c&lt;" class=""><strong>current_phase</strong></td><td id="Q&lt;@M" class="">Tracks the timeline’s present state (<strong>Developing, Peaking, Resolving, Dormant</strong>).</td></tr></tbody></table><h3 id="1c50fe7c-0095-800d-9f5c-c401124ff40f" class="">📌 <strong>3.8.10 Contradictions Sheet</strong></h3><hr id="1c30fe7c-0095-80da-80c8-c0594e268dec"/><h2 id="1c30fe7c-0095-80c8-8ab9-f9513c72a5ea" class=""><strong>4️⃣ FRONTEND</strong></h2><h2 id="1c50fe7c-0095-803e-8dd6-ef94822c4f88" class=""><strong>4.1 Core Frontend Architecture</strong></h2><p id="1c50fe7c-0095-804d-bd36-ec6500f83d69" class="">The frontend of Zoomout is the <strong>primary interface</strong> for interacting with the system, visualizing contradictions, tracking struggles, and analyzing historical motion. It needs to balance <strong>data density, clarity, and usability</strong> while maintaining a rigorous materialist approach. This section outlines:</p><ul id="1c50fe7c-0095-805c-bb13-ed81bba4b4fe" class="bulleted-list"><li style="list-style-type:disc"><strong>How frontend retrieves and renders data</strong> → Interfacing with the backend via APIs, database calls, and caching mechanisms.</li></ul><ul id="1c50fe7c-0095-8084-9f72-d80f691e8f77" class="bulleted-list"><li style="list-style-type:disc"><strong>How events, contradictions, struggles, and structures are displayed dynamically</strong> → Ensuring seamless transitions between different analytical layers.</li></ul><ul id="1c50fe7c-0095-80ca-ae11-ea96d49c4a0a" class="bulleted-list"><li style="list-style-type:disc"><strong>The role of each core page in the system</strong> → Explicitly defining functionality to prevent feature bloat and scope creep.</li></ul><p id="1c50fe7c-0095-804d-8b82-f50fe89c56e1" class=""><strong>At its core, the frontend is not just a UI—it is the visualization layer of the entire historical materialist engine.</strong></p><hr id="1c50fe7c-0095-8039-b0d7-f736d8202e2a"/><h2 id="1c50fe7c-0095-80fc-8cb6-da1340a2a727" class=""><strong>4.2 Core Pages &amp; Their Functionality</strong></h2><p id="1c50fe7c-0095-8096-a54c-df3d7ba52f8a" class="">Each page in Zoomout serves a specific role in analyzing historical motion, contradictions, and struggles. Below is a breakdown of each core page and its function.</p><h3 id="1c50fe7c-0095-8085-bdca-ec51dff682ec" class=""><strong>4.2.1 Reporting Page</strong></h3><ul id="1c50fe7c-0095-8022-8444-d9ec2ef85e9b" class="bulleted-list"><li style="list-style-type:disc"><strong>Primary function:</strong> This is the <strong>data entry &amp; review hub</strong>, where users <strong>log events and analyze them</strong>.</li></ul><p id="1c50fe7c-0095-80c1-9bc2-c3cefeba0354" class="">The <strong>Reporting Page</strong> serves as the <strong>core event feed</strong>, displaying all <strong>recorded events</strong> in reverse chronology. It integrates different <strong>manifestations of events</strong>:</p><ul id="1c50fe7c-0095-80f0-8d5e-f3f59047cb71" class="bulleted-list"><li style="list-style-type:disc"><strong>One-Off Events</strong> → Displayed as individual tiles.</li></ul><ul id="1c50fe7c-0095-80fa-93a8-f62e2f3e0cd3" class="bulleted-list"><li style="list-style-type:disc"><strong>Event Timelines</strong> → Events linked via <code>parent_id</code> &amp; <code>update_id</code> are grouped.</li></ul><ul id="1c50fe7c-0095-801d-af27-eda0382796cf" class="bulleted-list"><li style="list-style-type:disc"><strong>Issue Cards</strong> → When an event escalates into an <strong>ongoing issue</strong>, it is structured as an <strong>Issue Card</strong>, displaying its <strong>stance-based event timeline</strong>.</li></ul><p id="1c50fe7c-0095-80a6-9b68-d636533dbd69" class="">The <strong>floating &quot;+&quot; button</strong> on this page opens the <strong>Event Form</strong>, which writes data to the <strong>Events Sheet</strong>.</p><ul id="1c50fe7c-0095-809f-b83c-e40d3a13664e" class="bulleted-list"><li style="list-style-type:disc"><strong>Purpose:</strong> Ensures every logged event <strong>immediately integrates into the broader analysis framework</strong>.</li></ul><h3 id="1c50fe7c-0095-8071-9b75-ce271becbd5a" class=""><strong>4.2.2 Wiki Page</strong></h3><p id="1c50fe7c-0095-80bc-a530-e27af869e187" class="">The <strong>Wiki Page</strong> serves as the <strong>entity database</strong>, displaying <strong>entities as profile cards</strong>, categorized by <strong>entity type</strong> (Organizations, Political Parties, Movements, etc.).</p><ul id="1c50fe7c-0095-8068-8a61-f99434edbacb" class="bulleted-list"><li style="list-style-type:disc">Clicking a <strong>profile card</strong> reveals the <strong>entity’s history, stance-taking events, and timeline of actions</strong>.</li></ul><ul id="1c50fe7c-0095-80cc-9902-ce9a98421c19" class="bulleted-list"><li style="list-style-type:disc">The <strong>floating &quot;+&quot; button</strong> triggers the <strong>Entity Form</strong>, which writes data to the <strong>Entities Sheet</strong>.</li></ul><p id="1c50fe7c-0095-8031-81d8-ea4f1ed1fbde" class=""><strong>Entity Profile Cards:</strong><div class="indented"><ul id="1c50fe7c-0095-8027-a79c-d4af4d687e0d" class="bulleted-list"><li style="list-style-type:disc">Capture <strong>historical stances, contradictions, and power dynamics</strong>.</li></ul><ul id="1c50fe7c-0095-8030-b56c-e6e376719b26" class="bulleted-list"><li style="list-style-type:disc">Track how entities <strong>respond to contradictions over time</strong>.</li></ul></div></p><ul id="1c50fe7c-0095-809b-8b0d-f208f534ed14" class="bulleted-list"><li style="list-style-type:disc"><strong>Purpose:</strong> This is the <strong>archival layer</strong> of Zoomout—ensuring entities and struggles are not just recorded but <strong>contextualized</strong>.</li></ul><h3 id="1c50fe7c-0095-8037-a411-ffebf4994b82" class=""><strong>4.2.3 Issues Page</strong></h3><ul id="1c50fe7c-0095-80df-86aa-e15c320e55ce" class="bulleted-list"><li style="list-style-type:disc"><strong>Primary function:</strong> Displays <strong>Issue Cards</strong>, which <strong>group related events</strong> into structured contradictions.</li></ul><p id="1c50fe7c-0095-8087-a0fc-f2e4a1a6b74f" class="">The <strong>Issues Page</strong> displays <strong>Issue Cards</strong> in reverse chronology. Each <strong>Issue Card</strong> contains:</p><ul id="1c50fe7c-0095-80c1-927e-fbc896faf793" class="bulleted-list"><li style="list-style-type:disc"><strong>Issue Title &amp; Description</strong> (derived from the initiating event).</li></ul><ul id="1c50fe7c-0095-801d-95e7-c92c11e47413" class="bulleted-list"><li style="list-style-type:disc"><strong>Event Timeline of the Issue</strong> (linked events developing the situation).</li></ul><ul id="1c50fe7c-0095-8038-86da-f60a9b4f780d" class="bulleted-list"><li style="list-style-type:disc"><strong>Three-Column Stance Model</strong> (stances of different entities, dynamically updated from events).</li></ul><p id="1c50fe7c-0095-805f-a90d-e636cee3db00" class="">The <strong>floating &quot;+&quot; button</strong> on this page triggers the <strong>Issue Form</strong>, writing data to the <strong>Issues Sheet</strong>.</p><ul id="1c50fe7c-0095-8091-abff-fdb2086d131f" class="bulleted-list"><li style="list-style-type:disc"><strong>Purpose:</strong> Provides a <strong>dialectical breakdown of developing contradictions</strong>.</li></ul><h3 id="1c50fe7c-0095-8061-860a-df1d742c25ca" class=""><strong>4.2.4 Timeline Page</strong></h3><ul id="1c50fe7c-0095-8067-aa56-f5adb3353bee" class="bulleted-list"><li style="list-style-type:disc"><strong>Primary function:</strong> Displays <strong>historical motion through interactive timelines</strong>.</li></ul><p id="1c50fe7c-0095-8008-a759-e74993c613df" class="">The <strong>Timeline Page</strong> enables users to:</p><ul id="1c50fe7c-0095-8086-88ee-dfa4d3df492b" class="bulleted-list"><li style="list-style-type:disc"><strong>View Core Element Timelines</strong> → Entities, Struggles, Structures, Contradictions.</li></ul><ul id="1c50fe7c-0095-80d1-9b29-c02ee3d50765" class="bulleted-list"><li style="list-style-type:disc"><strong>Track user-defined timelines</strong> (<code>timeline_id</code>).</li></ul><ul id="1c50fe7c-0095-8081-8399-fc6f133e8983" class="bulleted-list"><li style="list-style-type:disc"><strong>Search &amp; Filter Timelines</strong> based on entity, struggle, contradiction, or structure.</li></ul><p id="1c50fe7c-0095-8005-8298-f15e0a6bb537" class="">The <strong>floating &quot;+&quot; button</strong> allows users to create a <strong>new mapped timeline</strong>, writing data to the <strong>Timelines Sheet</strong>.</p><ul id="1c50fe7c-0095-80f0-b60d-e7509be0dadb" class="bulleted-list"><li style="list-style-type:disc"><strong>Purpose:</strong> This is where <strong>motion over time</strong> is explicitly visualized.</li></ul><h3 id="1c50fe7c-0095-8050-b4d9-c57dfbc318f4" class=""><strong>4.2.5 Structures Page</strong></h3><ul id="1c50fe7c-0095-8070-a9dc-ec8fd396e41c" class="bulleted-list"><li style="list-style-type:disc"><strong>Primary function:</strong> Displays <strong>economic, political, social, and cultural structures</strong>—the material basis shaping contradictions.</li></ul><ul id="1c50fe7c-0095-803a-b90f-e0bfc8c0dca2" class="bulleted-list"><li style="list-style-type:disc"><strong>How it works:</strong><ul id="1c50fe7c-0095-806d-9258-ef752a06e4bc" class="bulleted-list"><li style="list-style-type:circle">Structures <strong>define the conditions within which contradictions emerge</strong>.</li></ul><ul id="1c50fe7c-0095-80a6-85f3-c3fb733e8f37" class="bulleted-list"><li style="list-style-type:circle">Users can track <strong>how structures evolve over time</strong> and how struggles shape or reinforce them.</li></ul></li></ul><ul id="1c50fe7c-0095-8069-89fd-d15d46063fae" class="bulleted-list"><li style="list-style-type:disc"><strong>Purpose:</strong> Ensures <strong>historical materialism is explicit in the UI</strong> by linking contradictions to their <strong>structural context</strong>.</li></ul><h3 id="1c50fe7c-0095-80a3-b896-d610865b8cee" class=""><strong>4.2.6 Struggles Page</strong></h3><ul id="1c50fe7c-0095-8079-98d3-f58ff8b7379b" class="bulleted-list"><li style="list-style-type:disc"><strong>Primary function:</strong> Organizes struggles by <strong>scale (local, national, global), form (electoral, direct action, armed struggle), and sector (economic, political, cultural)</strong>.</li></ul><ul id="1c50fe7c-0095-809f-9eaf-fe4c63a69693" class="bulleted-list"><li style="list-style-type:disc"><strong>How it works:</strong><ul id="1c50fe7c-0095-80db-ae19-cba8fbb1149a" class="bulleted-list"><li style="list-style-type:circle">Users can see <strong>how struggles develop over time</strong>.</li></ul><ul id="1c50fe7c-0095-80ea-a3e2-c618c48f2719" class="bulleted-list"><li style="list-style-type:circle">Struggles <strong>connect dynamically</strong> to contradictions and events, preventing isolated analysis.</li></ul></li></ul><ul id="1c50fe7c-0095-800e-a5f2-c5bfba12b8b9" class="bulleted-list"><li style="list-style-type:disc"><strong>Purpose:</strong> Ensures struggles are not just <strong>tracked as events but as ongoing processes</strong>.</li></ul><h3 id="1c50fe7c-0095-8025-916b-e600cc348083" class=""><strong>4.2.7 Contradictions Page</strong></h3><p id="1c50fe7c-0095-8066-9c9b-ffbaa5258047" class="">The <strong>Contradictions Page</strong> functions as a <strong>dialectical engine</strong>, displaying <strong>Contradictions as cards</strong>, emphasizing:</p><ul id="1c50fe7c-0095-80d7-b3eb-e884fd7176b8" class="bulleted-list"><li style="list-style-type:disc"><strong>Historical motion of contradictions</strong> (Latent → Developing → Sharp → Explosive).</li></ul><ul id="1c50fe7c-0095-8001-941c-f75549a7f1cc" class="bulleted-list"><li style="list-style-type:disc"><strong>Explicit links to Structures, Struggles, and Ruling-Class Management of Contradictions</strong>.</li></ul><p id="1c50fe7c-0095-80df-b608-cc573bfe28e5" class="">The <strong>floating &quot;+&quot; button</strong> on this page triggers the <strong>Contradiction Form</strong>, writing data to the <strong>Contradictions Sheet</strong>.</p><ul id="1c50fe7c-0095-8084-9ea8-dca146f7285d" class="bulleted-list"><li style="list-style-type:disc"><strong>How it works:</strong><ul id="1c50fe7c-0095-80e1-83a6-f429d361de12" class="bulleted-list"><li style="list-style-type:circle">Displays <strong>ruling-class management of contradictions</strong> → Legal Containment, Repressive Control, Narrative Manipulation, Co-optation.</li></ul><ul id="1c50fe7c-0095-80a4-a3c3-c60deb078c2a" class="bulleted-list"><li style="list-style-type:circle">Contradictions <strong>link dynamically to structures, struggles, and timelines</strong>.</li></ul></li></ul><ul id="1c50fe7c-0095-80db-9d15-ca5740fc20e3" class="bulleted-list"><li style="list-style-type:disc"><strong>Purpose:</strong> Ensures contradictions are not <strong>passively logged</strong> but are <strong>actively analyzed in motion</strong>.</li></ul><h3 id="1c30fe7c-0095-80de-b013-e2461c0e032a" class="">📺 <strong>4.2 Event Ingestion &amp; Display Logic</strong></h3><h3 id="1c30fe7c-0095-80c7-92d5-cff6c1bfce85" class="">📅 <strong>4.3 Interactive Timeline Visualization</strong></h3><h3 id="1c30fe7c-0095-8009-9b26-de2e3e4972ef" class="">📌 <strong>4.4 Issue Cards &amp; Stance Representation</strong></h3><h3 id="1c30fe7c-0095-8059-9d07-f7a696cd9dbe" class="">🎨 <strong>4.5 User Interface &amp; UX Strategy</strong></h3><h3 id="1c30fe7c-0095-80ae-8e11-d00d17a9c09a" class="">⚙️ <strong>4.6 Customization &amp; Personalization Options</strong></h3><hr id="1c30fe7c-0095-8005-af57-ca197a674bd6"/><h2 id="1c30fe7c-0095-800e-95b7-d3d2c402605a" class=""><strong>5️⃣ BACKEND</strong></h2><h3 id="1c30fe7c-0095-8007-a00d-fdf8934cf889" class="">🔧 <strong>5.1 System Components &amp; Stack</strong></h3><h3 id="1c30fe7c-0095-8026-88ce-c5eeeca88f5c" class="">⚙️ <strong>5.2 Data Processing Pipeline</strong></h3><h3 id="1c30fe7c-0095-802c-97fe-f399f49701d4" class="">🚀 <strong>5.3 Automation &amp; Scalability Considerations</strong></h3><h3 id="1c30fe7c-0095-807b-952b-d8eff6aadf6d" class="">📊 <strong>5.4 Graph-Based Modeling for Contradiction Forecasting</strong></h3><h3 id="1c30fe7c-0095-8008-a68c-cd5ad4c932a1" class="">🔗 <strong>5.5 API Design &amp; Data Querying Strategy</strong></h3><hr id="1c30fe7c-0095-8027-8b11-cd0d8db06c99"/><h2 id="1c30fe7c-0095-80c6-a427-fa925db00404" class=""><strong>6️⃣ EXECUTION &amp; ROADMAP</strong></h2><h3 id="1c30fe7c-0095-8070-ab8e-c38837b5c898" class="">📅 <strong>6.1 Roadmap: Short-Term &amp; Long-Term Milestones</strong></h3><h3 id="1c30fe7c-0095-8018-af4e-d37fe42c4e1c" class="">🛤️ <strong>6.2 Execution Log &amp; Progress Tracking</strong></h3><h3 id="1c30fe7c-0095-8094-b754-cecb9f32e2bb" class="">📝 <strong>6.3 Overview Changelog &amp; System-Wide Updates</strong></h3><h3 id="1c30fe7c-0095-8022-aa27-f5580dcdeb95" class="">🚀 <strong>6.4 Zoomout as a Class Struggle Intelligence Engine</strong></h3><hr id="1c30fe7c-0095-803f-b509-cb17c6fccf6f"/><p id="1c30fe7c-0095-8058-a13d-f87d8571ef1f" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

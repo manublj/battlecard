@@ -1,0 +1,81 @@
+.App {
+    min-height: 100vh;
+  }
+  
+  /* Article Reader Styles */
+  .article-reader {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .article-content {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  
+  .article-content img {
+    max-width: 100%;
+    height: auto;
+    margin: 1rem 0;
+  }
+  
+  /* Card Styles */
+  .card {
+    transition: transform 0.2s;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* SearchBar Styles */
+  .search-bar {
+    max-width: 600px;
+    margin: 0 auto 2rem;
+  }
+  
+  /* Highlight Styles */
+  .highlight {
+    background-color: #fff3cd;
+    padding: 2px;
+    border-radius: 2px;
+  }
+  
+  .highlight-icon {
+    position: absolute;
+    right: -20px;
+    color: #ffc107;
+    cursor: pointer;
+  }
+  
+  /* Form Styles */
+  .form-label.required::after {
+    content: '*';
+    color: red;
+    margin-left: 4px;
+  }
+  
+  /* Loading Spinner */
+  .spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  /* Responsive Grid */
+  @media (max-width: 768px) {
+    .main-content {
+      padding: 10px;
+    }
+    
+    .article-reader {
+      margin: 0 10px;
+    }
+  }
